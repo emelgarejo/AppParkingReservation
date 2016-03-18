@@ -1,7 +1,9 @@
-package pe.edu.upc.appparkingreservation;
+package pe.edu.upc.appparkingreservation.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import pe.edu.upc.appparkingreservation.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
