@@ -7,10 +7,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_main"
     tools:context=".activity.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="@dimen/splash_ic_car"
+        android:layout_height="@dimen/splash_ic_car"
+        android:src="@drawable/ic_car"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textSize="@dimen/splash_title"
+        android:text="@string/title_screen"
+        android:id="@+id/textView"
+        android:typeface="normal"
+        android:textColor="@color/colorForeWhite"
+        android:layout_alignTop="@+id/imgLogo"
+        android:layout_toEndOf="@+id/imgLogo" />
+
+
 </RelativeLayout>
