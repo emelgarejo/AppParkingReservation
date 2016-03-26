@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="splash_title">30dp</dimen>
+    <dimen name="splash_ic_car">100dp</dimen>
+    <dimen name="splash_ic_mark">80dp</dimen>
 </resources>
