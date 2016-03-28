@@ -31,7 +31,6 @@
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -41,6 +40,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".activity.ParkingViewActivity"></activity>
     </application>
 
 </manifest>
