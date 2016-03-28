@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
                 //finish();
-                startActivity(new Intent(LoginActivity.this, MapsActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
