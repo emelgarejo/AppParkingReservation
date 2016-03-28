@@ -23,6 +23,11 @@
     <string name="tviSinCuenta">¿No tienes cuenta?</string>
     <string name="textRegistrate">REGISTATE CON TU E-MAIL</string>
     <string name="title_activity_register">Registrarse</string>
+    <string name="title_activity_main_drawer">MainDrawerActivity</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

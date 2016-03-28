@@ -18,7 +18,7 @@ public class AccountService {
         Person person = null;
         try {
             // Simulate network access .
-            //cambiar por invocación a servico
+            // cambiar por invocación a servico
             Thread.sleep(2000);
 
             for (String credential : DUMMY_CREDENTIALS) {
