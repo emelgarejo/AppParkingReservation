@@ -13,7 +13,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">INICIAR SESIÓN</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_email">This e-mail address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -21,8 +21,10 @@
         completions."
     </string>
     <string name="tviSinCuenta">¿No tienes cuenta?</string>
-    <string name="textRegistrate">REGISTATE CON TU E-MAIL</string>
+    <string name="textRegistrate">REGISTRATE CON TU E-MAIL</string>
     <string name="title_activity_register">Registrarse</string>
 
+    <!-- Strings related to parking card view -->
+    <string name="title_parking_view">Mis Reservas</string>
 
 </resources>

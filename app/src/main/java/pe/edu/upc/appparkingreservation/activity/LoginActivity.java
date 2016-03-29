@@ -89,6 +89,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Button btnParkingView = (Button)findViewById(R.id.parkingView);
+        btnLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
+            }
+        });
+
         mProgressView = findViewById(R.id.login_progress);
     }
 
