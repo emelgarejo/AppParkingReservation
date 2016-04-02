@@ -9,6 +9,7 @@
     <string name="title_registro">Ingresa tus datos</string>
 
     <!-- Strings related to login -->
+    <string name="title_register">Cuenta</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">LOG IN</string>
