@@ -4,9 +4,9 @@ package pe.edu.upc.appparkingreservation.model;
  * Created by Heavyarms on 27/03/2016.
  */
 public class Parking {
-    private String nameParking;
-    private double rate;
-    private String status;
+    String nameParking;
+    double rate;
+    String status;
 
     public Parking(String nameParking, double rate, String status){
         this.nameParking = nameParking;

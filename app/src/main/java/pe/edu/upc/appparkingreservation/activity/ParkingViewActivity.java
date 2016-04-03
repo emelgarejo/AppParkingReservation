@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pe.edu.upc.appparkingreservation.R;
-//import pe.edu.upc.appparkingreservation.model.ParkingAdapter;
+import pe.edu.upc.appparkingreservation.model.ParkingAdapter;
 import pe.edu.upc.appparkingreservation.model.Parking;
 
 public class ParkingViewActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class ParkingViewActivity extends AppCompatActivity {
         mParkingRecyclerView.setHasFixedSize(true);
         mParkingLayoutManager = new LinearLayoutManager(this);
         mParkingRecyclerView.setLayoutManager(mParkingLayoutManager);
-        //mParkingAdapter = new ParkingAdapter(parking);
+        mParkingAdapter = new ParkingAdapter(parking);
         mParkingRecyclerView.setAdapter(mParkingAdapter);
     }
 
