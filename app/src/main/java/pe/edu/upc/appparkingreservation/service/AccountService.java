@@ -11,7 +11,7 @@ public class AccountService {
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "emelgarejo@app.com:123456", "rcarril@app.com:123456", "rlanda@app.com:123456"
+            "emelgarejo@app.com:123456", "rcarril@app.com:123456", "rlanda:123456"
     };
 
     public Person validateAccount(String mEmail, String mPassword) {

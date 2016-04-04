@@ -1,15 +1,11 @@
 package pe.edu.upc.appparkingreservation.activity;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.RequiresPermission;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -34,11 +30,12 @@ import pe.edu.upc.appparkingreservation.service.ParkingService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
-    private GoogleMap mMap;
+    private GoogleMap googleMap;
     private LocationManager locManager;
 
     double latitud ;
     double longitud;
+    boolean firstTime;
 
     ParkingService parkingService = new ParkingService();
 
@@ -52,34 +49,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // Hide the status bar.
-
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        //ActionBar actionBar = getActionBar();
-        //if (actionBar!= null)
-        //actionBar.hide();
-
-        //parkingService
-        //boton de UBICACION
-
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-
-//                getUserLocation();
-
-//            }
-//        });
-
+        firstTime=true;
 
     }
-
-
 
     /**
      * Manipulates the map once available.
@@ -92,88 +67,78 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap gMap) {
+        Log.d("myLog","");
+        googleMap = gMap;
 
-        Log.d("hello","hola");
-       // LocationManager locManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-       // List<String> listaProviders = locManager.getAllProviders();
+        if (googleMap != null) {
 
+            Log.d("myLog","googleMap no es null");
+            locManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
-        mMap = googleMap;
+            int permissionCheck = ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION);
+            Log.d("myLog","permissionCheck:" + permissionCheck);
 
-        //Obtenemos una referencia al LocationManager
-        locManager =
-                (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
+                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0, this);
+                Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        Log.d("hello 2","hola");
-        //Obtenemos la última posición conocida
+                if(loc == null){
+                    Log.d("myLog","locManager para NETWORK_PROVIDER es null");
+                    loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+                    if(loc == null){
+                        Toast.makeText(getBaseContext(), "locManager para GPS_PROVIDER es null", Toast.LENGTH_LONG).show();
+                    }
+                }
 
-        //Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                getUserLocation(loc);
 
+                if (googleMap != null) {
+                    googleMap.setMyLocationEnabled(true);
+                    googleMap.getCameraPosition();
 
-        Log.d("hello3","hola");
-        //Mostramos la última posición conocida
-        //mostrarPosicion(loc);
+                    //TODO: Rlanda adicionar el onClickListaner para el googleMaps
+                    //googleMap.setOnMarkerClickListener();
+                }
 
+                addListParkingLot();
 
-        //lista los estacionamientos
-
-
-
-        int permissionCheck = ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION);
-
-
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
-            //locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
-            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            if(loc == null){
-                Log.d("hello 5","locManager es null");
-                loc = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }else{
+                Toast.makeText(getBaseContext(), "No se tiene permisos para acceder a la " +
+                        "ubicación del dispositivo. Brindar los permisos a la aplicación.",
+                        Toast.LENGTH_LONG).show();
             }
-
-            getUserLocation(loc);
-
-
-            if (mMap != null) {
-                mMap.setMyLocationEnabled(true);
-            }
-
+        } else{
+            Toast.makeText(getBaseContext(), "No es posible Cargar el mapa.", Toast.LENGTH_LONG).show();
         }
-
-
-        listPark();
-
 
     }
 
     private void getUserLocation(Location location) {
 
+        Log.d("myLog","Ingresa a getUserLocation");
+        if (!locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-            Toast.makeText(getBaseContext(), "GPS IS DISSABLE", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Network Provider is Dissable", Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(getBaseContext(), "GPS  ENABLE", Toast.LENGTH_LONG).show();
-            if(location != null)
-            {
-                Toast.makeText(getBaseContext(), "latitud : " + latitud + ", Longitud : " + longitud, Toast.LENGTH_LONG).show();
-                latitud = location.getLatitude();
-                longitud =location.getLatitude();
+            Log.d("myLog","NETWORK PROVIDER IS ENABLE");
 
+            if(location != null){
+                latitud = location.getLatitude();
+                longitud =location.getLongitude();
                 LatLng myLatLng = new LatLng (latitud, longitud);
 
-                mMap.addMarker(new MarkerOptions().position(myLatLng).title("you are here!"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,16));
-
+                if(firstTime){
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,15));
+                    firstTime=false;
+                }else{
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
+                }
             }else{
-
-                Toast.makeText(getBaseContext(), "LOCATION IS NULL", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "No se puede obtener la localización", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -181,93 +146,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     public void onLocationChanged(Location location) {
-        Toast.makeText(getBaseContext(), "On location Change", Toast.LENGTH_LONG).show();
-        //getUserLocation(location);
-
     }
 
     public void onProviderDisabled(String provider) {
-        //lblEstado.setText("Provider OFF");
-        Toast.makeText(getBaseContext(), "Provider OFF", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Location provider off. Please, enable your GPS.", Toast.LENGTH_LONG).show();
     }
 
     public void onProviderEnabled(String provider) {
-        //lblEstado.setText("Provider ON");
-        Toast.makeText(getBaseContext(), "Provider ON", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Location Provider on.", Toast.LENGTH_LONG).show();
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        //lblEstado.setText("Provider Status: " + status);
-        Toast.makeText(getBaseContext(), "Provider status"  + status, Toast.LENGTH_LONG).show();
     }
-
-
-
+    
     /**
-     * Obtiene la lista de los estacionamientos cercanos
+     * Obtiene la lista de los estacionamientos
      *
      */
-    private void listPark() {
-
-/*
-        LatLng parking = new LatLng(-12.046884, -77.042783);
-        //BitmapDescriptor bmd = new BitmapDescriptor();
-
-        mMap.addMarker(new MarkerOptions().position(parking)
-                .title("parking here")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking))
-        );
-
-        LatLng parking2 = new LatLng(-12.047884, -77.042183);
-        //BitmapDescriptor bmd = new BitmapDescriptor();
-
-        mMap.addMarker(new MarkerOptions().position(parking2)
-                .title("parking here")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking))
-        );
-
-        LatLng parking3 = new LatLng(-12.106113, -76.964483 );
-                mMap.addMarker(new MarkerOptions().position(parking3)
-                        .title("parking here")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking))
-        );
-*/
-
+    private void addListParkingLot() {
 
         ArrayList<ParkingPlace> listParkingPlace = parkingService.getParkingPlaceMock();
 
-        Log.d("hello","Ingresa a listar los estacionamientos ");
         for(ParkingPlace parkingPlace: listParkingPlace){
 
-            Log.d("hello","crea 1 estacionamiento");
             LatLng latLngParkingPlace = new LatLng(parkingPlace.getLatitude(), parkingPlace.getLongitude());
-            Log.d("hello","parkingPlace.getLatitude()" + parkingPlace.getLatitude() + ": parkingPlace.getLongitude:" + parkingPlace.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
+            googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
                     .title(parkingPlace.getName())
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking))
             );
 
+            //MarkerOptions mo = new MarkerOptions();
+
         }
-
-
-
-    }
-
-
-    private void getUserLocation() {
-
-        //latitud = -12.046374;
-        //longitud =-77.042793;
-
-        latitud =-12.104183;
-        longitud =-76.963529;
-
-        Toast.makeText(getBaseContext(), "latitud : " + latitud + "," + longitud, Toast.LENGTH_LONG).show();
-        // Add a marker in Sydney and move the camera
-        LatLng myLatLng = new LatLng (latitud, longitud);
-        mMap.addMarker(new MarkerOptions().position(myLatLng).title("you are here!"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,17));
-
     }
 }
