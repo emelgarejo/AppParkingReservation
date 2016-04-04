@@ -5,13 +5,24 @@ package pe.edu.upc.appparkingreservation.model;
  */
 public class Parking {
     String nameParking;
+    String address;
+    String phone;
+    String openTime;
+    String closeTime;
     double rate;
     String status;
+    String logoUrl;
+    double totalPrice;
 
-    public Parking(String nameParking, double rate, String status){
+    public Parking(String nameParking, double rate, String status, String address, String phone, String openTime, String closeTime, String logoUrl){
         this.nameParking = nameParking;
         this.rate = rate;
         this.status = status;
+        this.address = address;
+        this.phone = phone;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.logoUrl = logoUrl;
     }
 
     /*public String getNameParking() {

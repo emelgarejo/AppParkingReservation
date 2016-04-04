@@ -34,8 +34,8 @@ public class ParkingViewActivity extends AppCompatActivity {
 
     public void initializeData() {
         parking = new ArrayList<>();
-        parking.add(new Parking("Los Portales S.A.", 11.00, "Activo"));
-        parking.add(new Parking("Los Frutales", 8.50, "Inactivo"));
+        parking.add(new Parking("Los Portales S.A.", 11.00, "Activo","Av. República de Panamá- San Isidro","412-6489","10:30 a.m.","18:30 p.m.",Integer.toString(R.mipmap.ic_logo_los_portales)));
+        parking.add(new Parking("Los Frutales", 8.50, "Inactivo","Av. Rosa Toro 465 - San Luis","474-6489","08:30 p.m.","09:30 a.m.",Integer.toString(R.mipmap.ic_logo_empty)));
     }
 
 }

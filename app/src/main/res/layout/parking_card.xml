@@ -4,21 +4,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parking_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     card_view:cardCornerRadius="4dp"
     android:layout_margin="5dp"
     android:clickable="true"
-    android:onClick="onClick">
+    android:onClick="onClick"
+    android:paddingTop="16dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="110dp">
         <TextView
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Los Portales S.A."
-            android:id="@+id/nameTextViewCard"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="66dp" />
+            android:id="@+id/nameTextView"
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Av. Rosa Toro 465"
+            android:id="@+id/addressTextView"
+            android:paddingTop="14dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="14dp"
+            android:layout_below="@+id/nameTextView"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activo"
+            android:id="@+id/statusTextView"
+            android:paddingTop="14dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/logoImageView"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/ic_logo_los_portales"
+            android:layout_above="@+id/addressTextView" />
 
     </RelativeLayout>
 

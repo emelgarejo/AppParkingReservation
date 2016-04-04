@@ -29,13 +29,19 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
         this.parking = parking;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextViewCard;
+        TextView nameTextView;
+        TextView addressTextView;
+        TextView statusTextView;
+        ImageView logoImageView;
         CardView parkingCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
             parkingCard = (CardView) itemView.findViewById(R.id.parking_card);
-            nameTextViewCard = (TextView) itemView.findViewById(R.id.nameTextViewCard);
+            nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
+            addressTextView = (TextView) itemView.findViewById(R.id.addressTextView);
+            statusTextView = (TextView) itemView.findViewById(R.id.statusTextView);
+            logoImageView = (ImageView) itemView.findViewById(R.id.logoImageView);
         }
     }
 
@@ -49,7 +55,10 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.nameTextViewCard.setText(parking.get(position).nameParking);
+        holder.nameTextView.setText(parking.get(position).nameParking);
+        holder.addressTextView.setText(parking.get(position).address);
+        holder.statusTextView.setText(parking.get(position).status);
+        holder.logoImageView.setImageResource(Integer.parseInt(parking.get(position).logoUrl));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +68,11 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
                 bundle.putString("nameParking", parking.get(position).nameParking);
                 bundle.putDouble("rate", parking.get(position).rate);
                 bundle.putString("status", parking.get(position).status);
+                bundle.putString("address", parking.get(position).address);
+                bundle.putString("phone", parking.get(position).phone);
+                bundle.putString("openTime", parking.get(position).openTime);
+                bundle.putString("closeTime", parking.get(position).closeTime);
+                bundle.putString("logoUrl", parking.get(position).logoUrl);
                 itemIntent.putExtras(bundle);
                 view.getContext().startActivity(itemIntent);
             }

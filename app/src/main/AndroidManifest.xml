@@ -41,6 +41,11 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".activity.ParkingViewActivity" />
+        <activity android:name=".activity.ItemParkingViewActivity" />
+        <activity
+            android:name=".activity.Navigation"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

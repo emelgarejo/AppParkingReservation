@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button btnParkingView = (Button)findViewById(R.id.parkingView);
-        btnLogin.setOnClickListener(new OnClickListener() {
+        btnParkingView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
