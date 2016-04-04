@@ -11,7 +11,7 @@ public class AccountService {
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "emelgarejo@app.com:1234", "rcarril@app.com:1234"
+            "emelgarejo@app.com:123456", "rcarril@app.com:123456", "rlanda:123456"
     };
 
     public Person validateAccount(String mEmail, String mPassword) {
@@ -23,7 +23,7 @@ public class AccountService {
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword)) {
+                if (pieces[0].equalsIgnoreCase(mEmail) && pieces[1].equals(mPassword)) {
                     person = new Person();
                     person.setName("Edgar");
                     person.setLastName("Melgarejo");

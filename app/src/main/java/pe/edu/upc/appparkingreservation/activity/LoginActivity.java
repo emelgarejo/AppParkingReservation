@@ -133,11 +133,12 @@ public class LoginActivity extends AppCompatActivity {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
+        //else if (!isEmailValid(email)) {
+        //    mEmailView.setError(getString(R.string.error_invalid_email));
+        //    focusView = mEmailView;
+        //    cancel = true;
+        //}
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -231,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
                 //finish();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MapsActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
