@@ -44,4 +44,7 @@
     <string name="label_closeTime">Fin:</string>
     <string name="label_phone">Teléfono:</string>
     <string name="label_totalPrice">Total:</string>
+
+    <string name="title_register">Registrar</string>
+
 </resources>
