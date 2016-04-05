@@ -89,13 +89,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button btnParkingView = (Button)findViewById(R.id.parkingView);
+       /* Button btnParkingView = (Button)findViewById(R.id.parkingView);
         btnParkingView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
             }
-        });
+        });*/
 
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            AccountService service = new AccountService();
+            AccountService service = new AccountService(LoginActivity.this);
 
             Person person = service.validateAccount(mEmail, mPassword);
 

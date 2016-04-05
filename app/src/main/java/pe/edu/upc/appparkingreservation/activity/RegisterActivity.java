@@ -291,7 +291,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            AccountService service = new AccountService();
+            AccountService service = new AccountService(RegisterActivity.this);
             Person person = new Person();
             person.setName(mNombre);
             person.setLastName(mApellido);
