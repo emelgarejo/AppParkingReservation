@@ -46,5 +46,6 @@
     <string name="label_totalPrice">Total:</string>
 
     <string name="title_register">Registrar</string>
+    <string name="title_activity_reservation">My Reservation</string>
 
 </resources>
