@@ -122,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.btnRegistrar) {
+        if (id == R.id.buttonSave) {
             registerUser();
             return true;
         }

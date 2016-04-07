@@ -61,7 +61,6 @@ public class AccountService {
             params.put("email", person.getUserName());
             params.put("password", person.getPassword());
             params.put("status", "true");
-            params.put("registerDate", "10/10/10");
             params.put("userID", "0");
 
             jsonObjReq.sendRequest(params);

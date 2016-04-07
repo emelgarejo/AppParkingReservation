@@ -5,9 +5,9 @@
     tools:context=".activity.PublishActivity">
 
     <item
-        android:id="@+id/btnRegistrar"
+        android:id="@+id/buttonSave"
         android:orderInCategory="100"
-        android:title="Publicar"
+        android:title="Save"
 
         app:showAsAction="always" >
         <!-- android:icon="@drawable/ic_camera_custom"-->

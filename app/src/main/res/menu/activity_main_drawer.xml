@@ -5,23 +5,23 @@
         <item
             android:id="@+id/nav_reservation"
             android:icon="@drawable/ic_menu_camera"
-            android:title="My Reservations" />
+            android:title="@string/menuMyReservation" />
         <item
             android:id="@+id/nav_parkingfind"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Search parking" />
+            android:title="@string/menuSearchParking" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_tools"
             android:icon="@drawable/ic_setting_light"
-            android:title="Tools" />
+            android:title="@string/menuTools" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_logout"
             android:icon="@drawable/ic_car"
-            android:title="Logout" />
+            android:title="@string/menuLogout" />
     </group>
 
     <item android:title="Communicate">
