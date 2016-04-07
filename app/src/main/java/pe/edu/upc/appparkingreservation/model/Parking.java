@@ -4,7 +4,8 @@ package pe.edu.upc.appparkingreservation.model;
  * Created by Heavyarms on 27/03/2016.
  */
 public class Parking {
-    String nameParking;
+    String name;
+    String description;
     String address;
     String phone;
     String openTime;
@@ -14,8 +15,11 @@ public class Parking {
     String logoUrl;
     double totalPrice;
 
-    public Parking(String nameParking, double rate, String status, String address, String phone, String openTime, String closeTime, String logoUrl){
-        this.nameParking = nameParking;
+    public Parking() {
+    }
+
+    public Parking(String nameParking, double rate, String status, String address, String phone, String openTime, String closeTime, String logoUrl) {
+        this.name = nameParking;
         this.rate = rate;
         this.status = status;
         this.address = address;
@@ -25,12 +29,44 @@ public class Parking {
         this.logoUrl = logoUrl;
     }
 
-    /*public String getNameParking() {
-        return nameParking;
+    public String getName() {
+        return name;
     }
 
-    public void setNameParking(String nameParking) {
-        this.nameParking = nameParking;
+    public void setName(String nameParking) {
+        this.name = nameParking;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
 
     public double getRate() {
@@ -47,5 +83,29 @@ public class Parking {
 
     public void setStatus(String status) {
         this.status = status;
-    }*/
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

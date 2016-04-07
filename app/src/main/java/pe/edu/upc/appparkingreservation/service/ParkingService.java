@@ -1,12 +1,16 @@
 package pe.edu.upc.appparkingreservation.service;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.content.Context;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import pe.edu.upc.appparkingreservation.R;
+import pe.edu.upc.appparkingreservation.backend.BackEndRequest;
+import pe.edu.upc.appparkingreservation.model.ParkingLot;
 import pe.edu.upc.appparkingreservation.model.ParkingPlace;
 
 /**
@@ -14,57 +18,139 @@ import pe.edu.upc.appparkingreservation.model.ParkingPlace;
  */
 public class ParkingService {
 
-    public ArrayList<ParkingPlace> getParkingPlace(){
-        //TODO : completar el servicio de obtener parking places.
-        return null;
+    private Context context;
+
+    private static final String URl_PARKING = "http://rnld1503-001-site1.btempurl.com/Parking.svc/";
+
+    public ParkingService(Context context) {
+        this.context = context;
+    }
+
+
+    public ArrayList<ParkingLot> getParkingLots() {
+        ArrayList<ParkingLot> list = null;
+        try {
+
+            String methot = URl_PARKING + "getParkingLots/";
+            //methot = String.format(methot, mEmail, mPassword);
+            Log.d("URL ParkingLots: ", methot);
+            BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
+            JSONArray result = jsonObjReq.getListResult();
+
+            if (result != null && result.length() > 0) {
+                list = new ArrayList<>();
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jresponse = result.getJSONObject(i);
+                    ParkingLot lots = adapterParkingLot(jresponse);
+                    list.add(lots);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 
     /**
      * metodo debe devolver los datos de un parking y si está reservado o no.
+     *
      * @param id
      * @return
      */
 
-    public ParkingPlace getParkingPlace(int id){
+    public ParkingLot getParkingLot(int id) {
 
-        ParkingPlace pp = null;
+        ParkingLot pp = null;
 
-        if(id== 1)
-            //Cesar Vallejo
-            pp = new ParkingPlace("Cesar Vallejo",1,"Cesar Vallejo",-12.014693,-77.084373,5.0);
-        else if (id== 2)//Cesar Vallejo 3554
-        pp = new ParkingPlace("Cesar Vallejo 3554",2,"Av. Cesar Vallejo 3554",-12.015464,-77.083622,5.0);
+        try {
+            String methot = URl_PARKING + "getParkingLot/%s";
+            methot = String.format(methot, id);
+            Log.d("URL USER: ", methot);
+            BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
+            JSONObject result = jsonObjReq.getSingleResult();
 
-        else if (id== 3)//Cesar Vallejo 3554
-            pp =  new ParkingPlace("Cesar Vallejo 3",3,"Av Tomás marzano 1889",-12.013181,-77.083837,5.0);
+            if (result != null) {
+                pp = adapterParkingLot(result);
+            }
 
-        else if (id== 4)//Cesar Vallejo 3554
-            pp = new ParkingPlace("Cesar Vallejo 35",4,"Av Tomás facundo 1889",-12.047884,-77.042183,5.0);
-        else if (id== 5)//Cesar Vallejo 3554
-            pp = new  ParkingPlace("Cesar Vallejo 355423",5,"Av Tomás el terco 18",-12.106113,-76.964483,5.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return  pp;
-
+        return pp;
     }
 
-    public ArrayList<ParkingPlace> getParkingPlaceMock(){
+    public ArrayList<ParkingPlace> getParkingPlaceByLot(int parkingLotId) {
+        ArrayList<ParkingPlace> list = null;
+        try {
 
-        ArrayList<ParkingPlace> listParkingPlace = new ArrayList<>();
+            String methot = URl_PARKING + "getParkingPlaceByLot/%s";
+            methot = String.format(methot, parkingLotId);
+            Log.d("URL ParkingLots: ", methot);
+            BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
+            JSONArray result = jsonObjReq.getListResult();
+
+            if (result != null && result.length() > 0) {
+                list = new ArrayList<>();
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jresponse = result.getJSONObject(i);
+                    ParkingPlace place = new ParkingPlace();
+                    place.setParkingLotID(jresponse.getInt("parkingLotID"));
+                    place.setParkingSpaceID(jresponse.getInt("parkingSpaceID"));
+                    place.setShortName(jresponse.getString("shortName"));
+                    place.setStatus(jresponse.getString("status"));
+                    list.add(place);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
+    public ArrayList<ParkingLot> getParkingPlaceMock() {
+
+        ArrayList<ParkingLot> listParkingLot = new ArrayList<>();
 
         //Cesar Vallejo
-        listParkingPlace.add(new ParkingPlace("Cesar Vallejo",1,"Cesar Vallejo",-12.014693,-77.084373,5.0));
+        listParkingLot.add(new ParkingLot("Cesar Vallejo", 1, "Cesar Vallejo", -12.014693, -77.084373, 5.0));
         //Cesar Vallejo 3554
-        listParkingPlace.add(new ParkingPlace("Cesar Vallejo 3554",2,"Av. Cesar Vallejo 3554",-12.015464,-77.083622,5.0));
+        listParkingLot.add(new ParkingLot("Cesar Vallejo 3554", 2, "Av. Cesar Vallejo 3554", -12.015464, -77.083622, 5.0));
         //Tomas Valle 18-89
-        listParkingPlace.add(new ParkingPlace("Cesar Vallejo 3",3,"Av Tomás marzano 1889",-12.013181,-77.083837,5.0));
+        listParkingLot.add(new ParkingLot("Cesar Vallejo 3", 3, "Av Tomás marzano 1889", -12.013181, -77.083837, 5.0));
 
         //surco
-        listParkingPlace.add(new ParkingPlace("Cesar Vallejo 35",4,"Av Tomás facundo 1889",-12.047884,-77.042183,5.0));
+        listParkingLot.add(new ParkingLot("Cesar Vallejo 35", 4, "Av Tomás facundo 1889", -12.047884, -77.042183, 5.0));
 
         //surco
-        listParkingPlace.add(new ParkingPlace("Cesar Vallejo 355423",5,"Av Tomás el terco 18",-12.106113,-76.964483,5.0));
+        listParkingLot.add(new ParkingLot("Cesar Vallejo 355423", 5, "Av Tomás el terco 18", -12.106113, -76.964483, 5.0));
 
-        return listParkingPlace;
+        return listParkingLot;
+    }
+
+    private ParkingLot adapterParkingLot(JSONObject jresponse) throws JSONException {
+        ParkingLot lots = new ParkingLot();
+        lots.setName(jresponse.getString("name"));
+        lots.setAddress(jresponse.getString("address"));
+        lots.setCloseTime(jresponse.getString("closeTime"));
+        lots.setUrlPicture(jresponse.getString("urlPicture"));
+        lots.setOpenTime(jresponse.getString("openTime"));
+        lots.setLocalPhone(jresponse.getString("LocalPhone"));
+        //lots.setRate(jresponse.getString("LocalPhone"));priceHour
+        lots.setPriceHour(jresponse.getDouble("priceHour"));
+        lots.setStatus(jresponse.getString("status"));
+        lots.setDescription(jresponse.getString("description"));
+        lots.setParkingLotID(jresponse.getInt("parkingLotID"));
+        lots.setProviderID(jresponse.getInt("providerID"));
+        lots.setDistrictId(jresponse.getInt("districtId"));
+        lots.setLatitude(jresponse.getDouble("latitude"));
+        lots.setLongitude(jresponse.getDouble("longitud"));
+        return lots;
     }
 }

@@ -3,10 +3,12 @@ package pe.edu.upc.appparkingreservation.backend;
 import android.content.Context;
 
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -51,7 +53,23 @@ public class BackEndRequest {
         }
         return response.getResult();
     }
+    public JSONArray getListResult() {
 
+        BackEndResponse<JSONArray> response = new BackEndResponse<>();
+
+        JsonArrayRequest jsonObjReq = new JsonArrayRequest(this.method, this.url, null, response, response);
+
+        Volley.newRequestQueue(this.context).add(jsonObjReq);
+
+        while (!response.isComplete()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return response.getResult();
+    }
     public void sendRequest(Map<String, String> params) {
 
         BackEndResponse<String> response = new BackEndResponse<>();

@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -33,7 +32,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import pe.edu.upc.appparkingreservation.R;
-import pe.edu.upc.appparkingreservation.model.ParkingPlace;
+import pe.edu.upc.appparkingreservation.model.ParkingLot;
 import pe.edu.upc.appparkingreservation.service.ParkingService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -55,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker markerSelectedParkingLog;
 
     //Services
-    ParkingService parkingService = new ParkingService();
+    ParkingService parkingService = new ParkingService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,18 +145,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             int IdParkingLot = Integer.valueOf(makerSelected.getTitle());
 
-                            ParkingPlace myParkingPlace = parkingService.getParkingPlace(IdParkingLot);
+                            ParkingLot myParkingLot = parkingService.getParkingLot(IdParkingLot);
 
-                            toolbar.setTitle(myParkingPlace.getName());
+                            toolbar.setTitle(myParkingLot.getName());
 
                             //parkLotImageView.setImageURI(Uri.parse("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"));
 
                             setImagen("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"  ,parkLotImageView);
-                            addressDetailTextView.setText( myParkingPlace.getAddress());
+                            addressDetailTextView.setText( myParkingLot.getAddress());
 
                             NumberFormat formatter = new DecimalFormat("#0.00");
                             pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
-                                    formatter.format(myParkingPlace.getPriceHour()))));
+                                    formatter.format(myParkingLot.getPriceHour()))));
 
                             cardViewDetail.setVisibility(View.VISIBLE);
 
@@ -230,13 +229,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void addParkingLotMakers() {
 
-        ArrayList<ParkingPlace> listParkingPlace = parkingService.getParkingPlaceMock();
+        ArrayList<ParkingLot> listParkingLot = parkingService.getParkingPlaceMock();
 
-        for(ParkingPlace parkingPlace: listParkingPlace){
+        for(ParkingLot parkingLot : listParkingLot){
 
-            LatLng latLngParkingPlace = new LatLng(parkingPlace.getLatitude(), parkingPlace.getLongitude());
+            LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
-                    .title(String.valueOf(parkingPlace.getParkingLotID()))
+                    .title(String.valueOf(parkingLot.getParkingLotID()))
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
 
             );

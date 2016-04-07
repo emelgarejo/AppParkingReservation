@@ -53,7 +53,7 @@ public class AccountService {
 
         try {
             String methot = URl_USER + "Users";
-            BackEndRequest jsonObjReq = new BackEndRequest(this.context, Request.Method.PUT, methot);
+            BackEndRequest jsonObjReq = new BackEndRequest(this.context, Request.Method.POST, methot);
 
             Map<String, String> params = new HashMap<String, String>();
             params.put("name", person.getName());

@@ -55,7 +55,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.nameTextView.setText(parking.get(position).nameParking);
+        holder.nameTextView.setText(parking.get(position).name);
         holder.addressTextView.setText(parking.get(position).address);
         holder.statusTextView.setText(parking.get(position).status);
         holder.logoImageView.setImageResource(Integer.parseInt(parking.get(position).logoUrl));
@@ -65,7 +65,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
                 System.out.printf("Selected position: %d%n", position);
                 Intent itemIntent = new Intent(view.getContext(), ItemParkingViewActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("nameParking", parking.get(position).nameParking);
+                bundle.putString("nameParking", parking.get(position).name);
                 bundle.putDouble("rate", parking.get(position).rate);
                 bundle.putString("status", parking.get(position).status);
                 bundle.putString("address", parking.get(position).address);

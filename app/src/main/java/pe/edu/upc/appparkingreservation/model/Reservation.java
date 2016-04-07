@@ -9,7 +9,7 @@ public class Reservation {
     private int reservationID;
     private int parkingSpaceID;
     private int userID;
-    private Date dateReservation;
+    private String dateReservation;
     private String startParking;
     private String finishParking;
     private Boolean status;
@@ -26,7 +26,7 @@ public class Reservation {
         return userID;
     }
 
-    public Date getdateReservation() {
+    public String getdateReservation() {
         return dateReservation;
     }
 
@@ -42,4 +42,31 @@ public class Reservation {
         return status;
     }
 
+    public void setReservationID(int reservationID) {
+        this.reservationID = reservationID;
+    }
+
+    public void setParkingSpaceID(int parkingSpaceID) {
+        this.parkingSpaceID = parkingSpaceID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setDateReservation(String dateReservation) {
+        this.dateReservation = dateReservation;
+    }
+
+    public void setStartParking(String startParking) {
+        this.startParking = startParking;
+    }
+
+    public void setFinishParking(String finishParking) {
+        this.finishParking = finishParking;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }
