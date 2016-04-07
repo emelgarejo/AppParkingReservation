@@ -5,12 +5,17 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,10 +24,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.ParkingPlace;
@@ -33,10 +40,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap googleMap;
     private LocationManager locManager;
 
+    CardView cardViewDetail;
+    Toolbar toolbar;
+    ImageView parkLotImageView;
+    TextView addressDetailTextView;
+    TextView pricexHourDetailTextView;
+
     double latitud ;
     double longitud;
     boolean firstTime;
 
+    MarkerOptions parkingLotSelectedMaker;
+    Marker markerSelectedParkingLog;
+
+    //Services
     ParkingService parkingService = new ParkingService();
 
     @Override
@@ -53,6 +70,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         firstTime=true;
+
+
+        cardViewDetail = (CardView) findViewById(R.id.cardViewDetail);
+        toolbar = (Toolbar) findViewById(R.id.toolbarCard);
+        parkLotImageView = (ImageView) findViewById(R.id.parkLotImageView);
+        addressDetailTextView = (TextView) findViewById(R.id.addressDetailTextView);
+        pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
+
+        parkingLotSelectedMaker = new MarkerOptions();
+
 
     }
 
@@ -100,20 +127,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     googleMap.setMyLocationEnabled(true);
                     googleMap.getCameraPosition();
 
-                    //TODO: Rlanda adicionar el onClickListaner para el googleMaps
-                    //googleMap.setOnMarkerClickListener();
+
+                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+                    {
+
+                        @Override
+                        public boolean onMarkerClick(Marker makerSelected) {
+
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(makerSelected.getPosition()));
+
+                            if(markerSelectedParkingLog != null){
+                                markerSelectedParkingLog.remove();
+                            }
+
+                            markerSelectedParkingLog = googleMap.addMarker(parkingLotSelectedMaker.position(makerSelected.getPosition()));
+
+                            int IdParkingLot = Integer.valueOf(makerSelected.getTitle());
+
+                            ParkingPlace myParkingPlace = parkingService.getParkingPlace(IdParkingLot);
+
+                            toolbar.setTitle(myParkingPlace.getName());
+
+                            parkLotImageView.setImageURI(Uri.parse("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"));
+
+                            addressDetailTextView.setText( myParkingPlace.getAddress());
+
+                            NumberFormat formatter = new DecimalFormat("#0.00");
+                            pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
+                                    formatter.format(myParkingPlace.getPriceHour()))));
+
+                            cardViewDetail.setVisibility(View.VISIBLE);
+
+                            return true;
+                        }
+
+                    });
                 }
 
-                addListParkingLot();
+                addParkingLotMakers();
 
             }else{
                 Toast.makeText(getBaseContext(), "No se tiene permisos para acceder a la " +
                         "ubicación del dispositivo. Brindar los permisos a la aplicación.",
                         Toast.LENGTH_LONG).show();
             }
+
         } else{
             Toast.makeText(getBaseContext(), "No es posible Cargar el mapa.", Toast.LENGTH_LONG).show();
         }
+
+        cardViewDetail.setVisibility(View.INVISIBLE);
 
     }
 
@@ -144,7 +207,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     public void onLocationChanged(Location location) {
     }
 
@@ -160,10 +222,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     
     /**
-     * Obtiene la lista de los estacionamientos
+     * coloca los Makers en el mapa de los estacionamientos
      *
      */
-    private void addListParkingLot() {
+    private void addParkingLotMakers() {
 
         ArrayList<ParkingPlace> listParkingPlace = parkingService.getParkingPlaceMock();
 
@@ -171,11 +233,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LatLng latLngParkingPlace = new LatLng(parkingPlace.getLatitude(), parkingPlace.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
-                    .title(parkingPlace.getName())
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking))
-            );
+                    .title(String.valueOf(parkingPlace.getParkingLotID()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
 
-            //MarkerOptions mo = new MarkerOptions();
+            );
 
         }
     }
