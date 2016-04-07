@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -79,6 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
 
         parkingLotSelectedMaker = new MarkerOptions();
+
 
 
     }
@@ -148,8 +150,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             toolbar.setTitle(myParkingPlace.getName());
 
-                            parkLotImageView.setImageURI(Uri.parse("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"));
+                            //parkLotImageView.setImageURI(Uri.parse("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"));
 
+                            setImagen("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"  ,parkLotImageView);
                             addressDetailTextView.setText( myParkingPlace.getAddress());
 
                             NumberFormat formatter = new DecimalFormat("#0.00");
@@ -239,5 +242,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             );
 
         }
+    }
+
+    private void setImagen(String URL, ImageView imageView){
+
+        Picasso.with(this.getBaseContext()).load(URL).into(imageView);
+
     }
 }
