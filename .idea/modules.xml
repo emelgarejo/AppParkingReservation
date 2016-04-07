@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/AppParking.iml" filepath="$PROJECT_DIR$/AppParking.iml" />
       <module fileurl="file://$PROJECT_DIR$/AppParkingReservation.iml" filepath="$PROJECT_DIR$/AppParkingReservation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
     </modules>
   </component>
 </project>
