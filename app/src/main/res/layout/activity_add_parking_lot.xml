@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="pe.edu.upc.appparkingreservation.activity.AddParkingLotActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:logoDescription="@string/app_name"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_add_parking_lot" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_email" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:background="@color/colorGrey"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/activity_header_title">
+
+        <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+ <!--   <LinearLayout
+            android:id="@+id/my_add_parkin_form"
+            android:layout_width="326dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/activity_header_title">
+-->
+            <ScrollView
+                android:id="@+id/reservation_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/email_login_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:text="Add ParkingLot"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="28dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Address"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:hint="Description"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txturlPicture"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Name Picture"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtLongitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Longitd"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtLatitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Latitud"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtLocalPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Local Phone"
+                        android:inputType="textPhonetic"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtOpenTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Open Time"
+                        android:inputType="time"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtCloseTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Close Time"
+                        android:inputType="time"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                    <EditText
+                        android:id="@+id/txtPriceHour"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_edittextddd"
+                        android:ems="10"
+                        android:hint="Price Hour"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/abc_primary_text_material_dark"
+                        android:textColorHint="@color/colorForeWhite" />
+
+                </LinearLayout>
+
+            </ScrollView>
+     <!--   <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_car"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:layout_below="@+id/login_progress"/>
+    -->
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

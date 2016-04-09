@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_reservation"
+            android:id="@+id/nav_list_parkinglot"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menuMyReservation" />
+            android:title="@string/menuParkigLots" />
         <item
             android:id="@+id/nav_parkingfind"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menuSearchParking" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_addparking"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Add ParkingLot" />
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_setting_light"
@@ -23,18 +23,5 @@
             android:icon="@drawable/ic_car"
             android:title="@string/menuLogout" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>

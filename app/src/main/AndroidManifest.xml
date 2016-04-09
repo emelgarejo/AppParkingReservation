@@ -53,6 +53,10 @@
         <activity
             android:name=".activity.ReservationActivity"
             android:label="@string/title_activity_reservation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AddParkingLotActivity"
+            android:label="@string/title_activity_add_parking_lot"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

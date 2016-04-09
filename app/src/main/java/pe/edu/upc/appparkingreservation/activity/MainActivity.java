@@ -84,13 +84,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_reservation) {
-            // Handle the camera action
-        } else if (id == R.id.nav_parkingfind) {
+        if (id == R.id.nav_parkingfind) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
-
-        } else if (id == R.id.nav_tools) {
-
+        } else if (id == R.id.nav_list_parkinglot) {
+            startActivity(new Intent(MainActivity.this, ParkingViewActivity.class));
+        } else if (id == R.id.nav_addparking) {
+            startActivity(new Intent(MainActivity.this, AddParkingLotActivity.class));
         } else if (id == R.id.nav_logout) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_share) {
@@ -103,5 +102,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
