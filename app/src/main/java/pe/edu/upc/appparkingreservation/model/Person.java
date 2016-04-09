@@ -7,7 +7,6 @@ public class Person {
     private String name;
     private String lastName;
     private String userName;
-    private String birthDay;
     private String password;
 
     public String getName() {
@@ -42,11 +41,4 @@ public class Person {
         this.password = password;
     }
 
-    public String getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
-    }
 }

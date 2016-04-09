@@ -43,10 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mNombre;
     private EditText mApellido;
-    private EditText mFechaNac;
     private EditText mPasswordView;
     private View mProgressView;
-    private DatePickerDialog dpkFechaNac;
     private View mLoginFormView;
     private SimpleDateFormat dateFormatter;
 
@@ -64,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.txtPassword);
         mNombre = (EditText) findViewById(R.id.txtNombre);
         mApellido = (EditText) findViewById(R.id.txtApellido);
-        mFechaNac = (EditText) findViewById(R.id.txtFechaNac);
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -77,34 +74,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        /*Button mEmailSignInButton = (Button) findViewById(R.id.btnRegistrarUsuario);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registerUser();
-            }
-        });*/
-
-        /*Button btnCancelarRegistro = (Button) findViewById(R.id.btnCancelarRegistro);
-        btnCancelarRegistro.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-*/
-        mFechaNac.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dpkFechaNac.show();
-            }
-        });
-
         mLoginFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        setDateTimeField();
     }
 
     @Override
@@ -130,22 +102,6 @@ public class RegisterActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void setDateTimeField() {
-
-
-        Calendar newCalendar = Calendar.getInstance();
-        dpkFechaNac = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                mFechaNac.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-    }
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -165,11 +121,9 @@ public class RegisterActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         String nombre = mNombre.getText().toString();
         String apellido = mApellido.getText().toString();
-        String fechaNac = mFechaNac.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(nombre)) {
@@ -185,12 +139,6 @@ public class RegisterActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(fechaNac)) {
-            mFechaNac.setError(getString(R.string.error_field_required));
-            focusView = mFechaNac;
-            cancel = true;
-        }
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -217,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(nombre, apellido, fechaNac, email, password);
+            mAuthTask = new UserLoginTask(nombre, apellido, email, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -276,16 +224,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         private final String mNombre;
         private final String mApellido;
-        private final String mFechaNac;
         private final String mEmail;
         private final String mPassword;
 
-        UserLoginTask(String nombre, String apellido, String fechaNac, String email, String password) {
+        UserLoginTask(String nombre, String apellido, String email, String password) {
             mEmail = email;
             mPassword = password;
             mApellido = apellido;
             mNombre = nombre;
-            mFechaNac = fechaNac;
         }
 
         @Override
@@ -297,7 +243,6 @@ public class RegisterActivity extends AppCompatActivity {
             person.setLastName(mApellido);
             person.setPassword(mPassword);
             person.setUserName(mEmail);
-            person.setBirthDay(mFechaNac);
 
             return service.registerPerson(person);
         }
@@ -308,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

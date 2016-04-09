@@ -117,7 +117,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@color/colorGreen"
+        android:background="@color/colorPrimary"
         android:text="@string/textRegistrate"
         android:textColor="@android:color/white"
         android:textSize="14sp"
@@ -125,18 +125,4 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-  <!--  <Button
-        android:id="@+id/parkingView"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="410dp"
-        android:background="@color/colorGreen"
-        android:text="@string/title_parking_view"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true" />-->
 </RelativeLayout>
