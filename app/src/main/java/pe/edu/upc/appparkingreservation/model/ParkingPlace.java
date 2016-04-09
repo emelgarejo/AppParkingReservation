@@ -41,4 +41,13 @@ public class ParkingPlace {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public ParkingPlace() {
+    }
+
+    public ParkingPlace(int  parkingLotID, int parkingSpaceID, String shortName) {
+        this.parkingLotID = parkingLotID;
+        this.parkingSpaceID = parkingSpaceID;
+        this.shortName = shortName;
+    }
 }
