@@ -1,10 +1,12 @@
 package pe.edu.upc.appparkingreservation.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 
 import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.ParkingLot;
+import pe.edu.upc.appparkingreservation.model.Person;
+import pe.edu.upc.appparkingreservation.service.AccountService;
 import pe.edu.upc.appparkingreservation.service.ParkingService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -52,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     MarkerOptions parkingLotSelectedMaker;
     Marker markerSelectedParkingLog;
-
+    private GetParkingTask mLotTask =null;
     //Services
     ParkingService parkingService = new ParkingService(this);
 
@@ -229,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void addParkingLotMakers() {
 
-        ArrayList<ParkingLot> listParkingLot = parkingService.getParkingPlaceMock();
+       /* ArrayList<ParkingLot> listParkingLot = parkingService.getParkingLots();
 
         for(ParkingLot parkingLot : listParkingLot){
 
@@ -240,6 +244,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             );
 
+        }*/
+        mLotTask = new GetParkingTask();
+        mLotTask.execute((Void) null);
+    }
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class GetParkingTask extends AsyncTask<Void, Void, Boolean> {
+
+
+        GetParkingTask() {
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            ArrayList<ParkingLot> listParkingLot = parkingService.getParkingLots();
+
+            for(ParkingLot parkingLot : listParkingLot){
+
+                LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
+                googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
+                        .title(String.valueOf(parkingLot.getParkingLotID()))
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
+
+                );
+
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mLotTask = null;
+            /*/mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                //finish();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }*/
+        }
+
+        @Override
+        protected void onCancelled() {
+            mLotTask = null;
+            //showProgress(false);
         }
     }
 
