@@ -113,61 +113,61 @@
 
 
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textViewTimeOpen"
+                    <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:gravity="top"
-                        android:text="Desde : "
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:layout_column="1" />
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/timeOpenTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:gravity="top"
-                        android:text=""
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:layout_column="2" />
+                        <TextView
+                            android:id="@+id/textViewTimeOpen"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="top"
+                            android:text="Desde : "
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:layout_column="1" />
 
-                    <TextView
-                        android:id="@+id/textViewTimeClose"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:gravity="top"
-                        android:text="  Hasta: "
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:layout_column="3" />
+                        <TextView
+                            android:id="@+id/timeOpenTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="top"
+                            android:text=""
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:layout_column="2" />
 
-                    <TextView
-                        android:id="@+id/timeCloseTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:gravity="top"
-                        android:text=""
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp"
-                        android:layout_column="4" />
+                        <TextView
+                            android:id="@+id/textViewTimeClose"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="top"
+                            android:text="  Hasta: "
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:layout_column="3" />
+
+                        <TextView
+                            android:id="@+id/timeCloseTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="top"
+                            android:text=""
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:layout_column="4" />
 
                     </TableRow>
                 </TableLayout>
@@ -186,27 +186,91 @@
                 android:layout_gravity="left"
                 android:gravity="left">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/parkLotImageView"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="8dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_menu_camera"
-                    android:layout_column="1"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ver"
-                    android:id="@+id/viewParkingButton"
-                    android:layout_gravity="bottom|right"
-                    android:layout_column="2" />
+                        <ImageView
+                            android:id="@+id/parkLotImageView"
+                            android:layout_width="120dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="8dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_menu_camera"
+                            android:layout_column="1"/>
+
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:gravity="left">
+
+                            <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/textViewPhone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp"
+                                    android:gravity="top"
+                                    android:text="Telefono : "
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_column="1" />
+
+                                <TextView
+                                    android:id="@+id/phoneTextView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="20dp"
+                                    android:gravity="top"
+                                    android:text=""
+                                    android:textColor="@android:color/black"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_column="2" />
+
+                            </TableRow>
+
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ver"
+                                    android:id="@+id/viewParkingButton"
+                                    android:layout_gravity="bottom|right"
+                                    android:layout_column="1" />
+
+                            </TableRow>
+                        </TableLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </LinearLayout>
 
                 </TableRow>
             </TableLayout>

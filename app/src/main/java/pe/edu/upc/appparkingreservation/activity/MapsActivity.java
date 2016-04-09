@@ -52,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView pricexHourDetailTextView;
     TextView timeOpenTextView;
     TextView timeCloseTextView;
+    TextView phoneTextView;
     Button viewParkingLotButton;
 
 
@@ -95,6 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         viewParkingLotButton =  (Button) findViewById(R.id.viewParkingButton);
         timeOpenTextView = (TextView) findViewById(R.id.timeOpenTextView);
         timeCloseTextView = (TextView) findViewById(R.id.timeCloseTextView);
+        phoneTextView = (TextView) findViewById(R.id.phoneTextView);
 
         parkingLotSelectedMaker = new MarkerOptions();
 
@@ -162,6 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
 
                             markerSelectedParkingLog = googleMap.addMarker(parkingLotSelectedMaker.position(makerSelected.getPosition()));
+
 
                             int IdParkingLot = Integer.valueOf(makerSelected.getTitle());
 
@@ -314,6 +317,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         timeOpenTextView.setText(myParkingLot.getOpenTime());
         timeCloseTextView.setText(myParkingLot.getCloseTime());
+        phoneTextView.setText(myParkingLot.getLocalPhone());
 
         cardViewDetail.setVisibility(View.VISIBLE);
     }
