@@ -1,5 +1,7 @@
 package pe.edu.upc.appparkingreservation.backend;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
@@ -31,7 +33,7 @@ public class BackEndResponse<T> implements Response.Listener<T>, Response.ErrorL
     public void onResponse(T response) {
         this.result = response;
         this.isComplete = true;
-
+        Log.d("VOLLEY - RESPONSE","SUCCESS");
     }
 
     @Override
@@ -39,5 +41,6 @@ public class BackEndResponse<T> implements Response.Listener<T>, Response.ErrorL
         error.printStackTrace();
         this.result = null;
         this.isComplete = true;
+        Log.d("VOLLEY - RESPONSE","FAIL");
     }
 }

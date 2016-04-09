@@ -1,7 +1,9 @@
 package pe.edu.upc.appparkingreservation.backend;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -53,13 +55,14 @@ public class BackEndRequest {
         }
         return response.getResult();
     }
+
     public JSONArray getListResult() {
 
         BackEndResponse<JSONArray> response = new BackEndResponse<>();
 
-        JsonArrayRequest jsonObjReq = new JsonArrayRequest(this.method, this.url, null, response, response);
+        JsonArrayRequest jsonArray = new JsonArrayRequest(this.method, this.url, null, response, response);
 
-        Volley.newRequestQueue(this.context).add(jsonObjReq);
+        Volley.newRequestQueue(this.context).add(jsonArray);
 
         while (!response.isComplete()) {
             try {
@@ -70,15 +73,27 @@ public class BackEndRequest {
         }
         return response.getResult();
     }
+
     public void sendRequest(Map<String, String> params) {
 
-        BackEndResponse<String> response = new BackEndResponse<>();
+        BackEndResponse<JSONObject> response = new BackEndResponse<>();
         this.params = params;
-        StringRequest jsonObjReq = new StringRequest(this.method, this.url, response, response) {
+        JSONObject json = new JSONObject(
+                params);
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(this.method, this.url, json, response, response) {
             @Override
             protected Map<String, String> getParams() {
-
+                Log.d("REQUEST", BackEndRequest.this.params.toString());
                 return BackEndRequest.this.params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                //params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Content-Type", "application/json; charset=utf-8");
+                return params;
             }
         };
 
