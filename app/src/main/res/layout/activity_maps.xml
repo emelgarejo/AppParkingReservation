@@ -49,7 +49,8 @@
                 app:subtitleTextAppearance="@style/Card.Subtitle"
                 app:theme="@style/ToolbarCard"
                 app:titleTextAppearance="@style/Card.Title"
-                />
+                android:clickable="false"
+                android:contextClickable="false" />
 
 
             <TableLayout
@@ -66,7 +67,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Precio: "
                         android:id="@+id/textViewPricexHour"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
                         android:layout_column="1" />/>
@@ -110,24 +111,109 @@
                         android:layout_column="2" />
                 </TableRow>
 
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textViewTimeOpen"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="top"
+                        android:text="Desde : "
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:layout_column="1" />
+
+                    <TextView
+                        android:id="@+id/timeOpenTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="top"
+                        android:text=""
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:layout_column="2" />
+
+                    <TextView
+                        android:id="@+id/textViewTimeClose"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="top"
+                        android:text="  Hasta: "
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:layout_column="3" />
+
+                    <TextView
+                        android:id="@+id/timeCloseTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="top"
+                        android:text=""
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:layout_column="4" />
+
+                    </TableRow>
+                </TableLayout>
+
             </TableLayout>
 
-            <!--By Mark Gurney [CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons -->
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ver"
-                android:id="@+id/viewParkingButton"
-                android:layout_gravity="right" />
 
-            <ImageView
-                android:id="@+id/parkLotImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_menu_camera" />
+
+
+
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="left">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/parkLotImageView"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_menu_camera"
+                    android:layout_column="1"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ver"
+                    android:id="@+id/viewParkingButton"
+                    android:layout_gravity="bottom|right"
+                    android:layout_column="2" />
+
+                </TableRow>
+            </TableLayout>
+
+
+            <!--By Mark Gurney [CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons -->
+
 
         </LinearLayout>
 

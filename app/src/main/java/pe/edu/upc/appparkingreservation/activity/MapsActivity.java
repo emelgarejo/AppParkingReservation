@@ -15,6 +15,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageView parkLotImageView;
     TextView addressDetailTextView;
     TextView pricexHourDetailTextView;
+    TextView timeOpenTextView;
+    TextView timeCloseTextView;
+    Button viewParkingLotButton;
+
 
     double latitud ;
     double longitud;
@@ -87,10 +92,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         parkLotImageView = (ImageView) findViewById(R.id.parkLotImageView);
         addressDetailTextView = (TextView) findViewById(R.id.addressDetailTextView);
         pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
+        viewParkingLotButton =  (Button) findViewById(R.id.viewParkingButton);
+        timeOpenTextView = (TextView) findViewById(R.id.timeOpenTextView);
+        timeCloseTextView = (TextView) findViewById(R.id.timeCloseTextView);
 
         parkingLotSelectedMaker = new MarkerOptions();
-        ArrayList<ParkingLot> listParkingLot;
 
+        viewParkingLotButton.setOnClickListener(onClickListenerViewParkingLot());
 
     }
 
@@ -161,9 +169,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             mLotByIdTask = new GetParkByidTask();
                             mLotByIdTask.execute((Void) null);
-                            //ParkingLot myParkingLot = parkingService.getParkingLot(IdParkingLot);
-
-                            //completeCard(myParkingLot);
 
                             return true;
                         }
@@ -300,12 +305,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void completeCard(ParkingLot myParkingLot) {
         toolbar.setTitle(myParkingLot.getName());
 
-        setImagen("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"  ,parkLotImageView);
+        setImagen(myParkingLot.getUrlPicture()  ,parkLotImageView);
         addressDetailTextView.setText( myParkingLot.getAddress());
 
         NumberFormat formatter = new DecimalFormat("#0.00");
         pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
                 formatter.format(myParkingLot.getPriceHour()))));
+
+        timeOpenTextView.setText(myParkingLot.getOpenTime());
+        timeCloseTextView.setText(myParkingLot.getCloseTime());
 
         cardViewDetail.setVisibility(View.VISIBLE);
     }
@@ -317,14 +325,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
                     .title(String.valueOf(parkingLot.getParkingLotID()))
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.parking3))
+
             );
 
         }
     }
 
-
     private void setImagen(String URL, ImageView imageView){
         Picasso.with(this.getBaseContext()).load(URL).into(imageView);
+    }
+
+
+    public View.OnClickListener onClickListenerViewParkingLot() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, ReservationActivity.class));
+
+            }
+        };
     }
 }
