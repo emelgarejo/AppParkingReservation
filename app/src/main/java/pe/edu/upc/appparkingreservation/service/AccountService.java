@@ -60,9 +60,11 @@ public class AccountService {
             params.put("lastName", person.getLastName());
             params.put("email", person.getUserName());
             params.put("password", person.getPassword());
-            params.put("status", "true");
+            params.put("registerDate", "0");
+            params.put("status", "1");
             params.put("userID", "0");
 
+            Log.d("ENTIDAD: ", params.toString());
             jsonObjReq.sendRequest(params);
 
         } catch (Exception e) {
