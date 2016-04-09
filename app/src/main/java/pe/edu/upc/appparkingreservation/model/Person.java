@@ -1,5 +1,7 @@
 package pe.edu.upc.appparkingreservation.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Edgar Melgarejo on 25/03/2016.
  */
@@ -9,6 +11,7 @@ public class Person {
     private String userName;
     private String password;
 
+    private ArrayList<Reservation> myReservation;
     public String getName() {
         return name;
     }
@@ -41,4 +44,11 @@ public class Person {
         this.password = password;
     }
 
+    public ArrayList<Reservation> getMyReservation() {
+        return myReservation;
+    }
+
+    public void setMyReservation(ArrayList<Reservation> myReservation) {
+        this.myReservation = myReservation;
+    }
 }

@@ -1,5 +1,7 @@
 package pe.edu.upc.appparkingreservation.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by ronald on 26/03/16.
  */
@@ -20,6 +22,7 @@ public class ParkingLot {
     private String closeTime;
     private double priceHour;
     private String status;
+    private ArrayList<ParkingPlace> parkingSpace;
 
     public ParkingLot() {
     }
@@ -31,6 +34,14 @@ public class ParkingLot {
         this.longitude = longitude;
         this.latitude = latitude;
         this.priceHour = priceHour;
+    }
+
+    public ArrayList<ParkingPlace> getParkingSpace() {
+        return parkingSpace;
+    }
+
+    public void setParkingSpace(ArrayList<ParkingPlace> parkingSpace) {
+        this.parkingSpace = parkingSpace;
     }
 
     public int getParkingLotID() {

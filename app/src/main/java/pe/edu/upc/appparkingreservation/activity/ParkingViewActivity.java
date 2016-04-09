@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.ParkingAdapter;
 import pe.edu.upc.appparkingreservation.model.Parking;
+import pe.edu.upc.appparkingreservation.model.ParkingLot;
+import pe.edu.upc.appparkingreservation.model.Reservation;
+import pe.edu.upc.appparkingreservation.service.AccountService;
+import pe.edu.upc.appparkingreservation.service.ParkingService;
 
 public class ParkingViewActivity extends AppCompatActivity {
-    private ArrayList<Parking> parking;
+    private ArrayList<ParkingLot> parking;
     private RecyclerView mParkingRecyclerView;
     private RecyclerView.Adapter mParkingAdapter;
     private RecyclerView.LayoutManager mParkingLayoutManager;
@@ -23,7 +27,25 @@ public class ParkingViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parking_view);
 
         parking = new ArrayList<>();
-        initializeData();
+        if (AccountService.CURRENT_USER != null) {
+            ArrayList<Reservation> rest = AccountService.CURRENT_USER.getMyReservation();
+            if(rest!=null){
+
+                ArrayList<ParkingLot> currentLots = new ArrayList<>();
+                for (int i = 0; i < rest.size(); i++) {
+                    for (int y = 0; y < ParkingService.PARKING_LOTS.size(); y++) {
+                        ParkingLot lotPAr = ParkingService.PARKING_LOTS.get(y);
+                        for (int z = 0; z < lotPAr.getParkingSpace().size(); z++) {
+                            if (lotPAr.getParkingSpace().get(z).getParkingSpaceID() == rest.get(i).getparkingSpaceID()) {
+                                currentLots.add(lotPAr);
+                            }
+                        }
+                    }
+                }
+                parking=currentLots;
+            }
+        }
+        //initializeData();
         mParkingRecyclerView = (RecyclerView) findViewById(R.id.parkingRecyclerView);
         mParkingRecyclerView.setHasFixedSize(true);
         mParkingLayoutManager = new LinearLayoutManager(this);
@@ -32,11 +54,11 @@ public class ParkingViewActivity extends AppCompatActivity {
         mParkingRecyclerView.setAdapter(mParkingAdapter);
     }
 
-    public void initializeData() {
+   /* public void initializeData() {
         parking = new ArrayList<>();
         parking.add(new Parking("Los Portales S.A.", 11.00, "Activo","Av. República de Panamá- San Isidro","412-6489","10:30 a.m.","18:30 p.m.",Integer.toString(R.mipmap.ic_logo_los_portales)));
         parking.add(new Parking("Los Frutales", 8.50, "Inactivo","Av. Rosa Toro 465 - San Luis","474-6489","08:30 p.m.","09:30 a.m.",Integer.toString(R.mipmap.ic_logo_empty)));
-    }
+    }*/
 
 }
 

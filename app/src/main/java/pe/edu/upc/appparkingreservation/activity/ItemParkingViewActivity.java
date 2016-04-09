@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import pe.edu.upc.appparkingreservation.R;
 
 /**
@@ -19,6 +21,7 @@ public class ItemParkingViewActivity extends AppCompatActivity {
     TextView nameTextView;
     TextView rateTextView;
     TextView statusTextView;
+    ImageView logo;
     Button backButton;
 
     @Override
@@ -42,6 +45,10 @@ public class ItemParkingViewActivity extends AppCompatActivity {
         statusTextView.setText(bundle.getString("closeTime"));
         /*statusTextView = (TextView) findViewById(R.id.statusTextView);
         statusTextView.setText(bundle.getString("logoUrl"));*/
+        logo = (ImageView)findViewById(R.id.imageViewReserv);
+        Picasso.with(logo.getContext())
+                .load(bundle.getString("logoUrl"))
+                .into(logo);
         backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

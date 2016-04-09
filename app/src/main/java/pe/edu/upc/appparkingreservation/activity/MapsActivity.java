@@ -35,12 +35,13 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import pe.edu.upc.appparkingreservation.R;
+import pe.edu.upc.appparkingreservation.model.Parking;
 import pe.edu.upc.appparkingreservation.model.ParkingLot;
 import pe.edu.upc.appparkingreservation.model.Person;
 import pe.edu.upc.appparkingreservation.service.AccountService;
 import pe.edu.upc.appparkingreservation.service.ParkingService;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap googleMap;
     private LocationManager locManager;
@@ -54,14 +55,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView timeCloseTextView;
     Button viewParkingLotButton;
 
+    private static ParkingLot myParkingLotSelected = null;
 
-    double latitud ;
+    double latitud;
     double longitud;
     boolean firstTime;
 
     MarkerOptions parkingLotSelectedMaker;
     Marker markerSelectedParkingLog;
-    private GetParkingTask mLotTask =null;
+    private GetParkingTask mLotTask = null;
     private GetParkByidTask mLotByIdTask = null;
 
     //Services
@@ -84,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        firstTime=true;
+        firstTime = true;
 
 
         cardViewDetail = (CardView) findViewById(R.id.cardViewDetail);
@@ -92,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         parkLotImageView = (ImageView) findViewById(R.id.parkLotImageView);
         addressDetailTextView = (TextView) findViewById(R.id.addressDetailTextView);
         pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
-        viewParkingLotButton =  (Button) findViewById(R.id.viewParkingButton);
+        viewParkingLotButton = (Button) findViewById(R.id.viewParkingButton);
         timeOpenTextView = (TextView) findViewById(R.id.timeOpenTextView);
         timeCloseTextView = (TextView) findViewById(R.id.timeCloseTextView);
 
@@ -114,28 +116,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void onMapReady(GoogleMap gMap) {
-        Log.d("myLog","");
+        Log.d("myLog", "");
         googleMap = gMap;
 
         if (googleMap != null) {
 
-            Log.d("myLog","googleMap no es null");
-            locManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+            Log.d("myLog", "googleMap no es null");
+            locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
             int permissionCheck = ContextCompat.checkSelfPermission(
                     this, Manifest.permission.ACCESS_FINE_LOCATION);
-            Log.d("myLog","permissionCheck:" + permissionCheck);
+            Log.d("myLog", "permissionCheck:" + permissionCheck);
 
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                 //Execute location service call if user has explicitly granted ACCESS_FINE_LOCATION..
                 locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0, this);
                 Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                if(loc == null){
-                    Log.d("myLog","locManager para NETWORK_PROVIDER es null");
+                if (loc == null) {
+                    Log.d("myLog", "locManager para NETWORK_PROVIDER es null");
                     loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                    if(loc == null){
+                    if (loc == null) {
                         Toast.makeText(getBaseContext(), "locManager para GPS_PROVIDER es null", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -147,17 +149,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     googleMap.getCameraPosition();
 
 
-                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-                    {
+                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
                         @Override
                         public boolean onMarkerClick(Marker makerSelected) {
 
 
-
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(makerSelected.getPosition()));
 
-                            if(markerSelectedParkingLog != null){
+                            if (markerSelectedParkingLog != null) {
                                 markerSelectedParkingLog.remove();
                             }
 
@@ -178,13 +178,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 addParkingLotMakers();
 
-            }else{
+            } else {
                 Toast.makeText(getBaseContext(), "No se tiene permisos para acceder a la " +
-                        "ubicación del dispositivo. Brindar los permisos a la aplicación.",
+                                "ubicación del dispositivo. Brindar los permisos a la aplicación.",
                         Toast.LENGTH_LONG).show();
             }
 
-        } else{
+        } else {
             Toast.makeText(getBaseContext(), "No es posible Cargar el mapa.", Toast.LENGTH_LONG).show();
         }
 
@@ -194,25 +194,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void getUserLocation(Location location) {
 
-        Log.d("myLog","Ingresa a getUserLocation");
+        Log.d("myLog", "Ingresa a getUserLocation");
         if (!locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
             Toast.makeText(getBaseContext(), "Network Provider is Dissable", Toast.LENGTH_LONG).show();
-        }else{
-            Log.d("myLog","NETWORK PROVIDER IS ENABLE");
+        } else {
+            Log.d("myLog", "NETWORK PROVIDER IS ENABLE");
 
-            if(location != null){
+            if (location != null) {
                 latitud = location.getLatitude();
-                longitud =location.getLongitude();
-                LatLng myLatLng = new LatLng (latitud, longitud);
+                longitud = location.getLongitude();
+                LatLng myLatLng = new LatLng(latitud, longitud);
 
-                if(firstTime){
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,15));
-                    firstTime=false;
-                }else{
+                if (firstTime) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
+                    firstTime = false;
+                } else {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
                 }
-            }else{
+            } else {
                 Toast.makeText(getBaseContext(), "No se puede obtener la localización", Toast.LENGTH_LONG).show();
             }
         }
@@ -235,7 +235,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * coloca los Makers en el mapa de los estacionamientos
-     *
      */
     private void addParkingLotMakers() {
 
@@ -302,26 +301,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
     private void completeCard(ParkingLot myParkingLot) {
         toolbar.setTitle(myParkingLot.getName());
 
-        setImagen(myParkingLot.getUrlPicture()  ,parkLotImageView);
-        addressDetailTextView.setText( myParkingLot.getAddress());
+        setImagen(myParkingLot.getUrlPicture(), parkLotImageView);
+        addressDetailTextView.setText(myParkingLot.getAddress());
 
         NumberFormat formatter = new DecimalFormat("#0.00");
-        pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
+        pricexHourDetailTextView.setText("S/".concat(String.valueOf(
                 formatter.format(myParkingLot.getPriceHour()))));
 
         timeOpenTextView.setText(myParkingLot.getOpenTime());
         timeCloseTextView.setText(myParkingLot.getCloseTime());
-
+        myParkingLotSelected = myParkingLot;
         cardViewDetail.setVisibility(View.VISIBLE);
     }
 
 
     private void putMarkersInMap(ArrayList<ParkingLot> listParkingLot) {
 
-        for(ParkingLot parkingLot : listParkingLot){
+        for (ParkingLot parkingLot : listParkingLot) {
             LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
                     .title(String.valueOf(parkingLot.getParkingLotID()))
@@ -332,7 +332,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void setImagen(String URL, ImageView imageView){
+    private void setImagen(String URL, ImageView imageView) {
         Picasso.with(this.getBaseContext()).load(URL).into(imageView);
     }
 
@@ -341,7 +341,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, ReservationActivity.class));
+                Intent itemView = new Intent(MapsActivity.this, ReservationActivity.class);
+                Bundle bundle = new Bundle();
+                if (MapsActivity.myParkingLotSelected != null) {
+                    bundle.putString("nameParking", MapsActivity.myParkingLotSelected.getName());
+                    // bundle.putDouble("rate", parking.get(position).get);
+                    bundle.putString("status", MapsActivity.myParkingLotSelected.getStatus());
+                    bundle.putString("address", MapsActivity.myParkingLotSelected.getAddress());
+                    bundle.putString("phone", MapsActivity.myParkingLotSelected.getLocalPhone());
+                    bundle.putString("openTime", MapsActivity.myParkingLotSelected.getOpenTime());
+                    bundle.putString("closeTime", MapsActivity.myParkingLotSelected.getCloseTime());
+                    bundle.putString("logoUrl", MapsActivity.myParkingLotSelected.getUrlPicture());
+                }
+
+                itemView.putExtras(bundle);
+                startActivity(itemView);
 
             }
         };
