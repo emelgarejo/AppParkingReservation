@@ -57,8 +57,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     MarkerOptions parkingLotSelectedMaker;
     Marker markerSelectedParkingLog;
     private GetParkingTask mLotTask =null;
+    private GetParkByidTask mLotByIdTask = null;
+
     //Services
     ParkingService parkingService = new ParkingService(this);
+
+    ArrayList<ParkingLot> listParkingLotGeneral;
+    int IdParkingLotGeneral;
+    ParkingLot myParkingLotGeneral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
 
         parkingLotSelectedMaker = new MarkerOptions();
-
+        ArrayList<ParkingLot> listParkingLot;
 
 
     }
@@ -139,6 +145,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public boolean onMarkerClick(Marker makerSelected) {
 
+
+
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(makerSelected.getPosition()));
 
                             if(markerSelectedParkingLog != null){
@@ -149,20 +157,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             int IdParkingLot = Integer.valueOf(makerSelected.getTitle());
 
-                            ParkingLot myParkingLot = parkingService.getParkingLot(IdParkingLot);
+                            IdParkingLotGeneral = IdParkingLot;
 
-                            toolbar.setTitle(myParkingLot.getName());
+                            mLotByIdTask = new GetParkByidTask();
+                            mLotByIdTask.execute((Void) null);
+                            //ParkingLot myParkingLot = parkingService.getParkingLot(IdParkingLot);
 
-                            //parkLotImageView.setImageURI(Uri.parse("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"));
-
-                            setImagen("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"  ,parkLotImageView);
-                            addressDetailTextView.setText( myParkingLot.getAddress());
-
-                            NumberFormat formatter = new DecimalFormat("#0.00");
-                            pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
-                                    formatter.format(myParkingLot.getPriceHour()))));
-
-                            cardViewDetail.setVisibility(View.VISIBLE);
+                            //completeCard(myParkingLot);
 
                             return true;
                         }
@@ -226,81 +227,104 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
-    
+
     /**
      * coloca los Makers en el mapa de los estacionamientos
      *
      */
     private void addParkingLotMakers() {
 
-       /* ArrayList<ParkingLot> listParkingLot = parkingService.getParkingLots();
-
-        for(ParkingLot parkingLot : listParkingLot){
-
-            LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
-                    .title(String.valueOf(parkingLot.getParkingLotID()))
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
-
-            );
-
-        }*/
         mLotTask = new GetParkingTask();
         mLotTask.execute((Void) null);
     }
 
+
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * permite trabajar el hilos la consulta de
      */
     public class GetParkingTask extends AsyncTask<Void, Void, Boolean> {
-
 
         GetParkingTask() {
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            ArrayList<ParkingLot> listParkingLot = parkingService.getParkingLots();
 
-            for(ParkingLot parkingLot : listParkingLot){
-
-                LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
-                        .title(String.valueOf(parkingLot.getParkingLotID()))
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
-
-                );
-
-            }
+            listParkingLotGeneral = parkingService.getParkingLots();
             return true;
+
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mLotTask = null;
-            /*/mAuthTask = null;
-            showProgress(false);
 
             if (success) {
-                //finish();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }*/
+                putMarkersInMap(listParkingLotGeneral);
+            }
         }
 
         @Override
         protected void onCancelled() {
             mLotTask = null;
-            //showProgress(false);
         }
     }
 
+
+    /**
+     * permite trabajar el hilos la consulta por Parking
+     */
+    public class GetParkByidTask extends AsyncTask<Void, Void, Boolean> {
+
+        GetParkByidTask() {
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            myParkingLotGeneral = parkingService.getParkingLot(IdParkingLotGeneral);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                completeCard(myParkingLotGeneral);
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mLotTask = null;
+        }
+    }
+
+    private void completeCard(ParkingLot myParkingLot) {
+        toolbar.setTitle(myParkingLot.getName());
+
+        setImagen("http://www.sanborja.com/fotos/distrito-de-san-borja.jpg"  ,parkLotImageView);
+        addressDetailTextView.setText( myParkingLot.getAddress());
+
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        pricexHourDetailTextView.setText( "S/".concat(String.valueOf(
+                formatter.format(myParkingLot.getPriceHour()))));
+
+        cardViewDetail.setVisibility(View.VISIBLE);
+    }
+
+
+    private void putMarkersInMap(ArrayList<ParkingLot> listParkingLot) {
+
+        for(ParkingLot parkingLot : listParkingLot){
+            LatLng latLngParkingPlace = new LatLng(parkingLot.getLatitude(), parkingLot.getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(latLngParkingPlace)
+                    .title(String.valueOf(parkingLot.getParkingLotID()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_parking2))
+            );
+
+        }
+    }
+
+
     private void setImagen(String URL, ImageView imageView){
-
         Picasso.with(this.getBaseContext()).load(URL).into(imageView);
-
     }
 }

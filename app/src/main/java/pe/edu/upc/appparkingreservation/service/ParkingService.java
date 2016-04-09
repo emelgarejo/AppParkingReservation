@@ -28,6 +28,9 @@ public class ParkingService {
 
 
     public ArrayList<ParkingLot> getParkingLots() {
+
+        Log.d("Hello", "ingreso a getParkingLots");
+
         ArrayList<ParkingLot> list = null;
         try {
 
@@ -35,7 +38,11 @@ public class ParkingService {
             //methot = String.format(methot, mEmail, mPassword);
             Log.d("URL ParkingLots: ", methot);
             BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
+
             JSONArray result = jsonObjReq.getListResult();
+
+            Log.d("Hello", "result :" + result);
+            Log.d("Hello", "result.length() :" + result.length());
 
             if (result != null && result.length() > 0) {
                 list = new ArrayList<>();
@@ -43,10 +50,15 @@ public class ParkingService {
                     JSONObject jresponse = result.getJSONObject(i);
                     ParkingLot lots = adapterParkingLot(jresponse);
                     list.add(lots);
+                    Log.d("Hello", "añande el elemento :" + i);
                 }
             }
 
+            Log.d("Hello", "fin llenado datos :" );
+
+
         } catch (Exception e) {
+            Log.d("Hello", " entro al catch:");
             e.printStackTrace();
         }
 
@@ -66,14 +78,18 @@ public class ParkingService {
         ParkingLot pp = null;
 
         try {
+
+            Log.d("Hello","ingresa a getParkingLot");
+
             String methot = URl_PARKING + "getParkingLot/%s";
             methot = String.format(methot, id);
-            Log.d("URL USER: ", methot);
+            Log.d("Hello: ", "method: " + methot);
             BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
             JSONObject result = jsonObjReq.getSingleResult();
-
+            Log.d("Hello: ", "result: " + result);
             if (result != null) {
                 pp = adapterParkingLot(result);
+                Log.d("Hello: ", "method: " + methot);
             }
 
         } catch (Exception e) {
