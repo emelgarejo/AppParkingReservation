@@ -79,8 +79,6 @@ public class ParkingService {
 
         try {
 
-            Log.d("Hello","ingresa a getParkingLot");
-
             String methot = URl_PARKING + "getParkingLot/%s";
             methot = String.format(methot, id);
             Log.d("Hello: ", "method: " + methot);
