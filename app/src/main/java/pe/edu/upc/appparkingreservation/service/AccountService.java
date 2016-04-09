@@ -20,6 +20,8 @@ public class AccountService {
 
     private Context context;
 
+    public static Person CURRENT_USER = null;
+
     private static final String URl_USER = "http://rnld1503-001-site1.btempurl.com/Users.svc/";
 
     public AccountService(Context context) {
@@ -29,17 +31,19 @@ public class AccountService {
     public Person validateAccount(String mEmail, String mPassword) {
         Person person = null;
         try {
-            mEmail = mEmail.substring(0,mEmail.indexOf('@'));
+            mEmail = mEmail.substring(0, mEmail.indexOf('@'));
             String methot = URl_USER + "ValidateUser/%s/%s";
             methot = String.format(methot, mEmail, mPassword);
-            Log.d("URL USER: ",methot);
+            Log.d("URL USER: ", methot);
             BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
             JSONObject result = jsonObjReq.getSingleResult();
 
             if (result != null) {
                 person = new Person();
                 person.setName(result.getString("name"));
+                person.setUserName(mEmail);
                 person.setLastName(result.getString("lastName"));
+                AccountService.CURRENT_USER = person;
             }
 
         } catch (Exception e) {

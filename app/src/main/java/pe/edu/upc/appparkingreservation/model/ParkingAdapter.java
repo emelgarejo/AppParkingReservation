@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import pe.edu.upc.appparkingreservation.activity.ItemParkingViewActivity;
 import pe.edu.upc.appparkingreservation.model.Parking;
 import pe.edu.upc.appparkingreservation.R;
@@ -23,9 +25,9 @@ import java.util.ArrayList;
  */
 public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHolder> {
 
-    private ArrayList<Parking> parking;
+    private ArrayList<ParkingLot> parking;
 
-    public ParkingAdapter(ArrayList<Parking> parking) {
+    public ParkingAdapter(ArrayList<ParkingLot> parking) {
         this.parking = parking;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,24 +57,27 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.nameTextView.setText(parking.get(position).name);
-        holder.addressTextView.setText(parking.get(position).address);
-        holder.statusTextView.setText(parking.get(position).status);
-        holder.logoImageView.setImageResource(Integer.parseInt(parking.get(position).logoUrl));
+        holder.nameTextView.setText(parking.get(position).getName());
+        holder.addressTextView.setText(parking.get(position).getAddress());
+        holder.statusTextView.setText(parking.get(position).getStatus());
+        //holder.logoImageView.setImageResource(Integer.parseInt(parking.get(position).logoUrl));
+        Picasso.with(holder.logoImageView.getContext())
+                .load(parking.get(position).getUrlPicture())
+                .into(holder.logoImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.printf("Selected position: %d%n", position);
                 Intent itemIntent = new Intent(view.getContext(), ItemParkingViewActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("nameParking", parking.get(position).name);
-                bundle.putDouble("rate", parking.get(position).rate);
-                bundle.putString("status", parking.get(position).status);
-                bundle.putString("address", parking.get(position).address);
-                bundle.putString("phone", parking.get(position).phone);
-                bundle.putString("openTime", parking.get(position).openTime);
-                bundle.putString("closeTime", parking.get(position).closeTime);
-                bundle.putString("logoUrl", parking.get(position).logoUrl);
+                bundle.putString("nameParking", parking.get(position).getName());
+               // bundle.putDouble("rate", parking.get(position).get);
+                bundle.putString("status", parking.get(position).getStatus());
+                bundle.putString("address", parking.get(position).getAddress());
+                bundle.putString("phone", parking.get(position).getLocalPhone());
+                bundle.putString("openTime", parking.get(position).getOpenTime());
+                bundle.putString("closeTime", parking.get(position).getCloseTime());
+                bundle.putString("logoUrl", parking.get(position).getUrlPicture());
                 itemIntent.putExtras(bundle);
                 view.getContext().startActivity(itemIntent);
             }

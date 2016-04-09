@@ -35,7 +35,10 @@ import java.util.List;
 
 import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.Person;
+import pe.edu.upc.appparkingreservation.model.Reservation;
 import pe.edu.upc.appparkingreservation.service.AccountService;
+import pe.edu.upc.appparkingreservation.service.ParkingService;
+import pe.edu.upc.appparkingreservation.service.ReservationService;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button btnLogin = (Button)findViewById(R.id.butRegistrate);
+        Button btnLogin = (Button) findViewById(R.id.butRegistrate);
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,7 +224,14 @@ public class LoginActivity extends AppCompatActivity {
             AccountService service = new AccountService(LoginActivity.this);
 
             Person person = service.validateAccount(mEmail, mPassword);
+            if (person != null) {
+                ParkingService parkingSer = new ParkingService(LoginActivity.this);
+                parkingSer.getParkingLots();
+                ReservationService serviceLot = new ReservationService(LoginActivity.this);
+                ArrayList<Reservation> lista = serviceLot.getReservationByUser(person.getUserName());
+                person.setMyReservation(lista);
 
+            }
             // TODO: register the new account here.
             return person != null;
         }
@@ -233,6 +243,13 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
                 //finish();
+               /* if (AccountService.CURRENT_USER.getMyReservation() != null && AccountService.CURRENT_USER.getMyReservation().size() > 0) {
+
+                    startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
+                } else {
+
+                    startActivity(new Intent(LoginActivity.this, MapsActivity.class));
+                }*/
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

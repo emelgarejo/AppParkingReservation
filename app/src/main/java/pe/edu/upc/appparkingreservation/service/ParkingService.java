@@ -19,7 +19,7 @@ import pe.edu.upc.appparkingreservation.model.ParkingPlace;
 public class ParkingService {
 
     private Context context;
-
+    public static ArrayList<ParkingLot> PARKING_LOTS;
     private static final String URl_PARKING = "http://rnld1503-001-site1.btempurl.com/Parking.svc/";
 
     public ParkingService(Context context) {
@@ -50,11 +50,11 @@ public class ParkingService {
                     JSONObject jresponse = result.getJSONObject(i);
                     ParkingLot lots = adapterParkingLot(jresponse);
                     list.add(lots);
-                    Log.d("Hello", "añande el elemento :" + i);
+                    ParkingService.PARKING_LOTS = list;
                 }
             }
 
-            Log.d("Hello", "fin llenado datos :" );
+            Log.d("Hello", "fin llenado datos :");
 
 
         } catch (Exception e) {
@@ -158,13 +158,28 @@ public class ParkingService {
         lots.setLocalPhone(jresponse.getString("LocalPhone"));
         //lots.setRate(jresponse.getString("LocalPhone"));priceHour
         lots.setPriceHour(jresponse.getDouble("priceHour"));
-        lots.setStatus(jresponse.getString("status"));
+        lots.setStatus("No Disponible");
+        if(jresponse.getString("status").toLowerCase()=="true"){
+
+            lots.setStatus("Disponible");
+        }
         lots.setDescription(jresponse.getString("description"));
         lots.setParkingLotID(jresponse.getInt("parkingLotID"));
         lots.setProviderID(jresponse.getInt("providerID"));
         lots.setDistrictId(jresponse.getInt("districtId"));
         lots.setLatitude(jresponse.getDouble("latitude"));
         lots.setLongitude(jresponse.getDouble("longitud"));
+
+        JSONArray array = jresponse.getJSONArray("lstParkingSpace");
+        if (array != null && array.length() > 0) {
+            lots.setParkingSpace(new ArrayList<ParkingPlace>());
+            for(int i=0;i<array.length();i++){
+                JSONObject obj = array.getJSONObject(i);
+                ParkingPlace place = new ParkingPlace();
+                place.setParkingSpaceID(obj.getInt("parkingSpaceID"));
+                lots.getParkingSpace().add(place);
+            }
+        }
         return lots;
     }
 }
