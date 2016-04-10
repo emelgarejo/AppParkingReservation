@@ -31,6 +31,7 @@ public class AccountService {
     public Person validateAccount(String mEmail, String mPassword) {
         Person person = null;
         try {
+
             mEmail = mEmail.substring(0, mEmail.indexOf('@'));
             String methot = URl_USER + "ValidateUser/%s/%s";
             methot = String.format(methot, mEmail, mPassword);

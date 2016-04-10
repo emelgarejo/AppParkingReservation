@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.PublishActivity">
 
-    <item
+    <!--item
         android:id="@+id/buttonSave"
         android:orderInCategory="100"
         android:title="Save"
 
         app:showAsAction="always" >
-        <!-- android:icon="@drawable/ic_camera_custom"-->
+        <- android:icon="@drawable/ic_camera_custom">
 
-    </item>
+    </item-->
 </menu>

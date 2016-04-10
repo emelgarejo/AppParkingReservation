@@ -3,7 +3,6 @@ package pe.edu.upc.appparkingreservation.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,16 +16,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.Person;
@@ -37,7 +32,7 @@ import pe.edu.upc.appparkingreservation.service.AccountService;
  */
 public class RegisterActivity extends AppCompatActivity {
 
-    private UserLoginTask mAuthTask = null;
+    private RegisterUserTask mRegisteruserTask = null;
 
     // UI references.
     private EditText mEmailView;
@@ -47,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private SimpleDateFormat dateFormatter;
+
+    private Button regUserButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +74,15 @@ public class RegisterActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.login_progress);
 
+        regUserButton = (Button) findViewById(R.id.registerUserButton);
+        regUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                registerUser();
+            }
+        });
+
     }
 
     @Override
@@ -86,29 +92,13 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.buttonSave) {
-            registerUser();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     private void registerUser() {
-        if (mAuthTask != null) {
+        if (mRegisteruserTask != null) {
             return;
         }
 
@@ -165,8 +155,8 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(nombre, apellido, email, password);
-            mAuthTask.execute((Void) null);
+            mRegisteruserTask = new RegisterUserTask(nombre, apellido, email, password);
+            mRegisteruserTask.execute((Void) null);
         }
     }
 
@@ -220,14 +210,14 @@ public class RegisterActivity extends AppCompatActivity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class RegisterUserTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mNombre;
         private final String mApellido;
         private final String mEmail;
         private final String mPassword;
 
-        UserLoginTask(String nombre, String apellido, String email, String password) {
+        RegisterUserTask(String nombre, String apellido, String email, String password) {
             mEmail = email;
             mPassword = password;
             mApellido = apellido;
@@ -249,7 +239,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            mRegisteruserTask = null;
             showProgress(false);
 
             if (success) {
@@ -262,7 +252,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            mRegisteruserTask = null;
             showProgress(false);
         }
     }

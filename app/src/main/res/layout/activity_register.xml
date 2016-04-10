@@ -64,7 +64,7 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/bg_edittextddd"
                     android:ems="10"
-                    android:hint="Nombres"
+                    android:hint="Your name"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
                     android:textColor="@color/abc_primary_text_material_dark"
@@ -78,7 +78,7 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/bg_edittextddd"
                     android:ems="10"
-                    android:hint="Apellidos"
+                    android:hint="Your last name"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
                     android:textColor="@color/abc_primary_text_material_dark"
@@ -91,7 +91,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edittextddd"
-                    android:hint="E-mail"
+                    android:hint="Your E-mail"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10dp"
                     android:textColor="@color/abc_primary_text_material_dark"
@@ -105,17 +105,23 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edittextddd"
                     android:ems="10"
-                    android:hint="Contraseña"
+                    android:hint="your password"
                     android:inputType="textPassword"
 
                     android:paddingLeft="10dp"
                     android:textColor="@color/abc_primary_text_material_dark"
                     android:textColorHint="@color/colorForeWhite" />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sing Up"
+                    android:id="@+id/registerUserButton"
+                    android:layout_gravity="center_horizontal" />
+
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-    <!-- Login progress -->
 
 </LinearLayout>

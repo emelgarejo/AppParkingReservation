@@ -35,7 +35,7 @@ public class ParkingService {
         try {
 
             String methot = URl_PARKING + "getParkingLots/";
-            //methot = String.format(methot, mEmail, mPassword);
+
             Log.d("URL ParkingLots: ", methot);
             BackEndRequest jsonObjReq = new BackEndRequest(this.context, methot);
 
@@ -128,26 +128,6 @@ public class ParkingService {
     }
 
 
-    public ArrayList<ParkingLot> getParkingPlaceMock() {
-
-        ArrayList<ParkingLot> listParkingLot = new ArrayList<>();
-
-        //Cesar Vallejo
-        listParkingLot.add(new ParkingLot("Cesar Vallejo", 1, "Cesar Vallejo", -12.014693, -77.084373, 5.0));
-        //Cesar Vallejo 3554
-        listParkingLot.add(new ParkingLot("Cesar Vallejo 3554", 2, "Av. Cesar Vallejo 3554", -12.015464, -77.083622, 5.0));
-        //Tomas Valle 18-89
-        listParkingLot.add(new ParkingLot("Cesar Vallejo 3", 3, "Av Tomás marzano 1889", -12.013181, -77.083837, 5.0));
-
-        //surco
-        listParkingLot.add(new ParkingLot("Cesar Vallejo 35", 4, "Av Tomás facundo 1889", -12.047884, -77.042183, 5.0));
-
-        //surco
-        listParkingLot.add(new ParkingLot("Cesar Vallejo 355423", 5, "Av Tomás el terco 18", -12.106113, -76.964483, 5.0));
-
-        return listParkingLot;
-    }
-
     private ParkingLot adapterParkingLot(JSONObject jresponse) throws JSONException {
         ParkingLot lots = new ParkingLot();
         lots.setName(jresponse.getString("name"));
@@ -156,7 +136,6 @@ public class ParkingService {
         lots.setUrlPicture(jresponse.getString("urlPicture"));
         lots.setOpenTime(jresponse.getString("openTime"));
         lots.setLocalPhone(jresponse.getString("LocalPhone"));
-        //lots.setRate(jresponse.getString("LocalPhone"));priceHour
         lots.setPriceHour(jresponse.getDouble("priceHour"));
         lots.setStatus("No Disponible");
         if(jresponse.getString("status").toLowerCase()=="true"){
