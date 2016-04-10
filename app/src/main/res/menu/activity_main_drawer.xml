@@ -4,23 +4,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_list_parkinglot"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_tag_multiple"
             android:title="@string/menuParkigLots" />
         <item
             android:id="@+id/nav_parkingfind"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_crosshairs_gps"
             android:title="@string/menuSearchParking" />
-        <item
-            android:id="@+id/nav_addparking"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Add ParkingLot" />
+
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_setting_light"
             android:title="@string/menuTools" />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_car"
+            android:icon="@drawable/ic_power"
             android:title="@string/menuLogout" />
     </group>
 

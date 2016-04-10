@@ -1,9 +1,15 @@
 package pe.edu.upc.appparkingreservation.activity;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,7 +21,8 @@ import pe.edu.upc.appparkingreservation.model.Reservation;
 import pe.edu.upc.appparkingreservation.service.AccountService;
 import pe.edu.upc.appparkingreservation.service.ParkingService;
 
-public class ParkingViewActivity extends AppCompatActivity {
+public class ParkingViewActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
     private ArrayList<ParkingLot> parking;
     private RecyclerView mParkingRecyclerView;
     private RecyclerView.Adapter mParkingAdapter;
@@ -52,8 +59,43 @@ public class ParkingViewActivity extends AppCompatActivity {
         mParkingRecyclerView.setLayoutManager(mParkingLayoutManager);
         mParkingAdapter = new ParkingAdapter(parking);
         mParkingRecyclerView.setAdapter(mParkingAdapter);
-    }
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_reservation);
+        navigationView.setNavigationItemSelectedListener(this);
+        String name = AccountService.CURRENT_USER.getName() + " " + AccountService.CURRENT_USER.getLastName();
+
+        TextView txtNameProfile = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtNameProfile);
+        if (txtNameProfile != null) {
+            txtNameProfile.setText(name.toUpperCase());
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_parkingfind) {
+            startActivity(new Intent(ParkingViewActivity.this, MapsActivity.class));
+        } else if (id == R.id.nav_list_parkinglot) {
+            startActivity(new Intent(ParkingViewActivity.this, ParkingViewActivity.class));
+        } else if (id == R.id.nav_logout) {
+            startActivity(new Intent(ParkingViewActivity.this, LoginActivity.class));
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
    /* public void initializeData() {
         parking = new ArrayList<>();
         parking.add(new Parking("Los Portales S.A.", 11.00, "Activo","Av. República de Panamá- San Isidro","412-6489","10:30 a.m.","18:30 p.m.",Integer.toString(R.mipmap.ic_logo_los_portales)));

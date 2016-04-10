@@ -1,184 +1,161 @@
-<android.support.v7.widget.CardView
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_card"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardCornerRadius="4dp"
-    android:layout_margin="5dp"
-    android:clickable="false">
-    <RelativeLayout
+    android:layout_margin="16dp"
+    tools:context="pe.edu.upc.appparkingreservation.activity.ItemParkingViewActivity">
+
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Portales S.A."
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageViewReserv"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/ic_logo_los_portales" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/internal_item_layout">
+        android:layout_below="@+id/imageViewReserv"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Portales S.A."
-            android:id="@+id/nameTextView"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:layout_marginTop="40dp"
-            android:layout_alignParentEnd="false"
-            android:layout_marginLeft="20dp"
-            android:textSize="24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_address"
             android:id="@+id/labeladdressTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/addressTextView"
-            />
+            android:layout_marginTop="10dp"
+            android:text="@string/label_address" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Av. Rosa Toro 465"
             android:id="@+id/addressTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="left"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
-             />
+            android:text="Av. Rosa Toro 465" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelrateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/rateTextView"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_rate" />
+
+            <TextView
+                android:id="@+id/rateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="40.50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelstatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_status" />
+
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Activo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelOpenTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_openTime" />
+
+            <TextView
+                android:id="@+id/openTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="10:30 a.m." />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelCloseTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_closeTime" />
+
+            <TextView
+                android:id="@+id/closeTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="18:30 p.m." />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_rate"
-            android:id="@+id/labelrateTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/rateTextView"
-            />
+            android:layout_marginTop="10dp"
+            android:text="@string/label_phone" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="40.50"
-            android:id="@+id/rateTextView"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="130dp"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_status"
-            android:id="@+id/labelstatusTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/statusTextView"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Activo"
-            android:id="@+id/statusTextView"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="170dp"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_openTime"
-            android:id="@+id/labelOpenTimeTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/openTimeTextView"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10:30 a.m."
-            android:id="@+id/openTimeTextView"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="210dp"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_closeTime"
-            android:id="@+id/labelCloseTimeTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/closeTimeTextView"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="18:30 p.m."
-            android:id="@+id/closeTimeTextView"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="250dp"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_phone"
-            android:id="@+id/labelPhoneTimeTextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/phoneTextView"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="474-1908"
             android:id="@+id/phoneTextView"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="290dp"
-            android:layout_alignParentStart="true"
-            />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:id="@+id/backButton"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="120dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="120dp"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="10dp"
+            android:text="474-1908" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:id="@+id/imageViewReserv"
+    </LinearLayout>
 
-            android:src="@mipmap/ic_logo_los_portales"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/labeladdressTextView" />
+    <Button
+        android:id="@+id/backButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Back" />
 
-    </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</RelativeLayout>

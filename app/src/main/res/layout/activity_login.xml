@@ -10,7 +10,6 @@
     android:background="@color/colorDarkBack"
     tools:context="pe.edu.upc.appparkingreservation.activity.LoginActivity">
 
-    <include layout="@layout/content_main" />
 
     <!-- Login progress -->
     <ProgressBar
@@ -43,6 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:textColor="@android:color/white"
+        style="@style/white"
         android:text="@string/title_activity_login"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />

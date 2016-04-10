@@ -47,7 +47,7 @@
 
     <string name="title_register">Registrar</string>
     <string name="title_activity_reservation">My Reservation</string>
-    <string name="menuParkigLots">List Parking Lot</string>
+    <string name="menuParkigLots">My Reservation</string>
     <string name="menuSearchParking">Search Parking</string>
     <string name="menuTools">Tools</string>
     <string name="menuLogout">Logout</string>
