@@ -39,12 +39,12 @@
     <string name="title_activity_navigation">Navigation</string>
 
     <string name="label_parking">Empresa:</string>
-    <string name="label_address">Dirección:</string>
-    <string name="label_rate">Precio/Hora:</string>
-    <string name="label_status">Estado:</string>
-    <string name="label_openTime">Inicio:</string>
-    <string name="label_closeTime">Fin:</string>
-    <string name="label_phone">Teléfono:</string>
+    <string name="label_address">Address:</string>
+    <string name="label_rate">Price by hour:</string>
+    <string name="label_status">Status:</string>
+    <string name="label_openTime">Start at:</string>
+    <string name="label_closeTime">Finish at:</string>
+    <string name="label_phone">Phone:</string>
     <string name="label_totalPrice">Total:</string>
 
     <string name="title_register">New Account</string>

@@ -65,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Precio: "
+                        android:text="Price By Hour: "
                         android:id="@+id/textViewPricexHour"
                         android:textSize="15dp"
                         android:textColor="@color/colorPrimaryDark"
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:gravity="top"
-                        android:text="Dirección: "
+                        android:text="Address: "
                         android:textColor="@android:color/black"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -126,7 +126,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="top"
-                            android:text="Desde : "
+                            android:text="Open: "
                             android:textColor="@android:color/black"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -150,7 +150,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="top"
-                            android:text="  Hasta: "
+                            android:text="  to: "
                             android:textColor="@android:color/black"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -220,9 +220,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="20dp"
                                     android:gravity="top"
-                                    android:text="Telefono : "
+                                    android:text="Phone: "
                                     android:textColor="@android:color/black"
-                                    android:textSize="15sp"
+                                    android:textSize="18sp"
                                     android:textStyle="bold"
                                     android:layout_marginBottom="10dp"
                                     android:layout_column="1" />
@@ -234,7 +234,7 @@
                                     android:gravity="top"
                                     android:text=""
                                     android:textColor="@android:color/black"
-                                    android:textSize="15sp"
+                                    android:textSize="18sp"
                                     android:textStyle="bold"
                                     android:layout_marginBottom="10dp"
                                     android:layout_column="2" />
@@ -245,15 +245,6 @@
                             <TableRow
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
-
-                                <Button
-                                    style="?android:attr/buttonStyleSmall"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Ver"
-                                    android:id="@+id/viewParkingButton"
-                                    android:layout_gravity="bottom|right"
-                                    android:layout_column="1" />
 
                             </TableRow>
                         </TableLayout>

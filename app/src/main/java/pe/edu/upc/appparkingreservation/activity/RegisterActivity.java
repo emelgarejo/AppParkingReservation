@@ -27,9 +27,7 @@ import pe.edu.upc.appparkingreservation.R;
 import pe.edu.upc.appparkingreservation.model.Person;
 import pe.edu.upc.appparkingreservation.service.AccountService;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class RegisterActivity extends AppCompatActivity {
 
     private RegisterUserTask mRegisteruserTask = null;

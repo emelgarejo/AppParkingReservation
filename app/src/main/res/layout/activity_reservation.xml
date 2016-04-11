@@ -47,88 +47,7 @@
                 android:textSize="28dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txtparkingSpaceID"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_edittextddd"
-                android:ems="10"
-                android:hint="parking Space"
-                android:inputType="textPersonName"
-                android:paddingLeft="10dp"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:textColorHint="@color/colorForeWhite" />
-
-            <EditText
-                android:id="@+id/txtuserID"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_edittextddd"
-                android:ems="10"
-                android:hint="User"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:textColorHint="@color/colorForeWhite" />
-
-            <EditText
-                android:id="@+id/txtdateReservation"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_edittextddd"
-                android:hint="Date Reservation"
-                android:inputType="date"
-                android:paddingLeft="10dp"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:textColorHint="@color/colorForeWhite" />
-
-            <EditText
-                android:id="@+id/txtstartParking"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_edittextddd"
-                android:ems="10"
-                android:hint="Start Parking"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:textColorHint="@color/colorForeWhite" />
-
-            <EditText
-                android:id="@+id/txtfinishParking"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_edittextddd"
-                android:ems="10"
-                android:hint="Finish Parking"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:textColorHint="@color/colorForeWhite" />
-
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_car"
-            android:layout_marginTop="50dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
-            android:layout_below="@+id/login_progress"/>
 
         <ProgressBar
             android:id="@+id/login_progress"
@@ -144,17 +63,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/editText" />
         </ScrollView>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/editText2" />
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
-
 
 
 </LinearLayout>

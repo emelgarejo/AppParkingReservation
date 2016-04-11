@@ -40,17 +40,13 @@ import pe.edu.upc.appparkingreservation.service.AccountService;
 import pe.edu.upc.appparkingreservation.service.ParkingService;
 import pe.edu.upc.appparkingreservation.service.ReservationService;
 
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
+
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -65,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView.setText("rnld1503@gmail.com");
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -92,13 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-       /* Button btnParkingView = (Button)findViewById(R.id.parkingView);
-        btnParkingView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
-            }
-        });*/
 
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -163,7 +153,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 3;
     }
 
@@ -177,15 +166,6 @@ public class LoginActivity extends AppCompatActivity {
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });*/
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -204,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous login task used to authenticate
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -219,11 +199,10 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             AccountService service = new AccountService(LoginActivity.this);
-
             Person person = service.validateAccount(mEmail, mPassword);
+
             if (person != null) {
                 ParkingService parkingSer = new ParkingService(LoginActivity.this);
                 parkingSer.getParkingLots();
@@ -232,7 +211,6 @@ public class LoginActivity extends AppCompatActivity {
                 person.setMyReservation(lista);
 
             }
-            // TODO: register the new account here.
             return person != null;
         }
 
@@ -242,14 +220,6 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                //finish();
-               /* if (AccountService.CURRENT_USER.getMyReservation() != null && AccountService.CURRENT_USER.getMyReservation().size() > 0) {
-
-                    startActivity(new Intent(LoginActivity.this, ParkingViewActivity.class));
-                } else {
-
-                    startActivity(new Intent(LoginActivity.this, MapsActivity.class));
-                }*/
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

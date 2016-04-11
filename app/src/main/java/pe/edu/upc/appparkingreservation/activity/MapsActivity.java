@@ -95,14 +95,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         parkLotImageView = (ImageView) findViewById(R.id.parkLotImageView);
         addressDetailTextView = (TextView) findViewById(R.id.addressDetailTextView);
         pricexHourDetailTextView = (TextView) findViewById(R.id.textViewPricexHourDetail);
-        viewParkingLotButton = (Button) findViewById(R.id.viewParkingButton);
+        //viewParkingLotButton = (Button) findViewById(R.id.viewParkingButton);
         timeOpenTextView = (TextView) findViewById(R.id.timeOpenTextView);
         timeCloseTextView = (TextView) findViewById(R.id.timeCloseTextView);
         phoneTextView = (TextView) findViewById(R.id.phoneTextView);
 
         parkingLotSelectedMaker = new MarkerOptions();
 
-        viewParkingLotButton.setOnClickListener(onClickListenerViewParkingLot());
+        //viewParkingLotButton.setOnClickListener(onClickListenerViewParkingLot());
 
     }
 
@@ -140,7 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                     if (loc == null) {
-                        Toast.makeText(getBaseContext(), "locManager para GPS_PROVIDER es null", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Can't get know Location.", Toast.LENGTH_LONG).show();
                     }
                 }
 
